@@ -48,6 +48,7 @@ export const ChainSelect = ({ payingToken }: { payingToken: boolean }) => {
               </Select.Label>
               {chains.map((chain) => (
                 <SelectItem
+                  key={chain.id}
                   value={chain.id.toString()}
                   isSupported={chain.isSupported}
                 >

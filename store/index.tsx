@@ -2,20 +2,20 @@ import { create } from "zustand";
 
 interface ITokenStore {
   sellToken: undefined | string;
-  sellAmount: number;
+  sellAmount: string;
   buyToken: undefined | string;
-  buyAmount: number;
+  buyAmount: string;
   setSellToken: (tokenIndex: string | undefined) => void;
-  setSellAmount: (amount: number) => void;
+  setSellAmount: (amount: string) => void;
   setBuyToken: (tokenIndex: string | undefined) => void;
-  setBuyAmount: (amount: number) => void;
+  setBuyAmount: (amount: string) => void;
 }
 
 const useTokenStore = create<ITokenStore>((set) => ({
   sellToken: undefined,
-  sellAmount: 0,
+  sellAmount: "",
   buyToken: undefined,
-  buyAmount: 0,
+  buyAmount: "",
   setSellToken: (tokenIndex) =>
     set({
       sellToken: tokenIndex,

@@ -17,15 +17,14 @@ export const ChainAmountInput = ({
       <div className="w-full h-full flex flex-col justify-center items-start">
         <p className="text-xs px-3 text-gray-500">{text}</p>
         <Input
-          type="number"
+          type="text"
           placeholder="0"
           className="bg-transparent text-xl"
-          value={payingToken ? sellAmount : buyAmount}
           disabled={!payingToken}
           onChange={(e) => {
             payingToken
-              ? setSellAmount(parseInt(e.target.value))
-              : setBuyAmount(parseInt(e.target.value));
+              ? setSellAmount(e.target.value)
+              : setBuyAmount(e.target.value);
           }}
         />
       </div>
