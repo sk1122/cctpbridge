@@ -11,19 +11,22 @@ import {
   optimism,
   polygon,
   zora,
+  polygonMumbai,
+  arbitrumGoerli,
+  optimismGoerli,
   goerli,
   avalancheFuji,
 } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, publicClient } = configureChains(
-  [goerli, avalancheFuji],
+  [goerli, avalancheFuji, arbitrumGoerli, optimismGoerli],
   [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
-  projectId: "YOUR_PROJECT_ID",
+  appName: "CCTP Bridge",
+  projectId: "a28e6122aff5f1d2b89776d480ec3c67",
   chains,
 });
 

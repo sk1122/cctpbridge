@@ -9,6 +9,7 @@ export const ChainSelect = ({ payingToken }: { payingToken: boolean }) => {
   const { sellToken, buyToken, setSellToken, setBuyToken } = useTokenStore();
 
   const handleValue = (id: string) => {
+    console.log(id);
     if (payingToken) {
       if (id === buyToken) {
         setBuyToken(undefined);

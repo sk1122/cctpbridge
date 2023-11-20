@@ -1,12 +1,13 @@
 import { ABI } from "@/constants/abi";
 import { MessageTransmitterABI } from "@/constants/abi/MessageTransmitter";
+import { chains } from "@/lib/data";
 import { publicClientViem } from "@/pages/_app";
 import { useTokenStore } from "@/store";
 import { decodeEventLog, parseUnits } from "viem";
 import { useAccount, useContractWrite } from "wagmi";
 
 export default function useBridge() {
-  const { sellAmount } = useTokenStore();
+  const { sellAmount, sellToken } = useTokenStore();
   const { address } = useAccount();
   const { writeAsync } = useContractWrite({
     abi: ABI,
@@ -17,9 +18,10 @@ export default function useBridge() {
   const bridgeToken = async () => {
     try {
       const amount = parseUnits(sellAmount.toString(), 6);
+      const destinationDomain = chains[parseInt(sellToken!)].destinationDomain;
 
       const { hash } = await writeAsync({
-        args: [amount, 1, address!],
+        args: [amount, destinationDomain, address!],
       });
 
       const { logs } = await publicClientViem.waitForTransactionReceipt({

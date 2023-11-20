@@ -11,6 +11,8 @@ export type Chain = {
   id: number;
   rpc: string;
   chainId: number;
+  testnetChainId: number;
+  destinationDomain: number;
   logoURI: string;
   name: string;
   tokens: Token[];
@@ -21,6 +23,8 @@ export const evmChainData: Chain[] = [
   {
     id: 1,
     chainId: 1,
+    testnetChainId: 5,
+    destinationDomain: 0,
     name: "ETH",
     logoURI: "/asset/ethereum.webp",
     rpc: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
@@ -63,6 +67,8 @@ export const evmChainData: Chain[] = [
   {
     id: 2,
     chainId: 137,
+    testnetChainId: 80001,
+    destinationDomain: 0,
     name: "POL",
     rpc: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     logoURI: "/asset/matic.webp",
@@ -103,8 +109,10 @@ export const evmChainData: Chain[] = [
     isSupported: false
   },
   {
-    id: 4,
+    id: 3,
     chainId: 43114,
+    testnetChainId: 43113,
+    destinationDomain: 1,
     name: "AVAX",
     rpc: "https://eth-mainnet.g.alchemy.com/v2/",
     logoURI: "/asset/avalanche.webp",
@@ -145,8 +153,10 @@ export const evmChainData: Chain[] = [
     isSupported: true
   },
   {
-    id: 6,
+    id: 4,
     chainId: 42161,
+    testnetChainId: 421613,
+    destinationDomain: 3,
     name: "ARB",
     rpc: `https://arb-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     logoURI: "/asset/arb.webp",
@@ -189,6 +199,8 @@ export const evmChainData: Chain[] = [
   {
     id: 5,
     chainId: 10,
+    testnetChainId: 420,
+    destinationDomain: 2,
     name: "OPT",
     rpc: `https://opt-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     logoURI: "/asset/opt.webp",
@@ -232,9 +244,11 @@ export const evmChainData: Chain[] = [
 
 export const solanaChainData: Chain[] = [
   {
-    id: 7,
+    id: 6,
     chainId: 12465,
     name: "SOL",
+    testnetChainId: 1,
+    destinationDomain: 0,
     rpc: `https://solana-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     logoURI: "/asset/solana.webp",
     tokens: [
@@ -269,8 +283,10 @@ export const solanaChainData: Chain[] = [
 
 export const aptosChainData: Chain[] = [
   {
-    id: 8,
+    id: 7,
     chainId: 12466,
+    testnetChainId: 1,
+    destinationDomain: 0,
     name: "APT",
     rpc: "https://eth-mainnet.g.alchemy.com/v2/",
     logoURI: "/asset/aptos.webp",
