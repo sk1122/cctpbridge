@@ -5,10 +5,12 @@ interface ITokenStore {
   sellAmount: string;
   buyToken: undefined | string;
   buyAmount: string;
+  srcTx: undefined | string;
   setSellToken: (tokenIndex: string | undefined) => void;
   setSellAmount: (amount: string) => void;
   setBuyToken: (tokenIndex: string | undefined) => void;
   setBuyAmount: (amount: string) => void;
+  setSrcTx: (srcTx: string | undefined) => void;
 }
 
 const useTokenStore = create<ITokenStore>((set) => ({
@@ -16,6 +18,7 @@ const useTokenStore = create<ITokenStore>((set) => ({
   sellAmount: "",
   buyToken: undefined,
   buyAmount: "",
+  srcTx: undefined,
   setSellToken: (tokenIndex) =>
     set({
       sellToken: tokenIndex,
@@ -31,6 +34,10 @@ const useTokenStore = create<ITokenStore>((set) => ({
   setBuyAmount: (amount) =>
     set({
       buyAmount: amount,
+    }),
+  setSrcTx: (srcTx) =>
+    set({
+      srcTx: srcTx,
     }),
 }));
 

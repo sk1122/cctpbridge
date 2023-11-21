@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// transaction
+
+// id - uuid
+// createdAt - date
+// updatedAt - date
+// sender - string
+// reciever - string
+// srcChain - number
+// srcToken - string
+// srcTx - string
+// dstChain - number
+// dstToken - string
+// dstTx - string
+// slippage - number
+// pending - boolean
+
+model transaction {
+  id        String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  createdAt DateTime @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @db.Timestamptz(6)
+  updatedAt DateTime @db.Timestamptz(6)
+  sender    String   @db.VarChar
+  receiver  String   @db.VarChar
+  srcChain  Int
+  srcToken  String   @db.VarChar
+  srcTx     String   @db.VarChar
+  dstChain  Int
+  dstToken  String   @db.VarChar
+  dstTx     String?  @db.VarChar
+  slippage  Int
+  pending   Boolean? @default(true)
+}

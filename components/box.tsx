@@ -8,19 +8,22 @@ import { useTokenStore } from "@/store";
 import getAttestation from "@/utils/getAttestation";
 import { useState } from "react";
 import { keccak256 } from "viem";
-import { useAccount, useContractWrite } from "wagmi";
+import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
 import { CustomConnectButton } from "./custom-connect-button";
+import addTransaction from "@/utils/addTransaction";
+import updateTransaction from "@/utils/updateTransaction";
 
 export const Box = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [buttonText, setButtonText] = useState<string>("Bridge");
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const { approveAllowance } = useApprove();
   const { bridgeToken } = useBridge();
-  const { sellToken, buyToken } = useTokenStore();
+  const { sellToken, buyToken, sellAmount, buyAmount, setSrcTx, srcTx } =
+    useTokenStore();
   const { switchChain } = useSwitchChain();
   const { attestationStatus } = useAttestation();
   const { writeAsync } = useContractWrite({
@@ -29,42 +32,73 @@ export const Box = () => {
     address: "0xa9fB1b3009DCb79E2fe346c16a604B8Fa8aE0a79",
   });
 
-  async function handleBridge() {
-    setIsLoading(true);
-    setButtonText("");
-    const chainID = await switchChain(
-      chains[parseInt(sellToken!) - 1].testnetChainId
+  async function addTransactionToDB(srcTx: string) {
+    const srcChain = chains[parseInt(sellToken!) - 1].chainId;
+    const dstChain = chains[parseInt(buyToken!) - 1].chainId;
+    const slippage = 1;
+
+    await addTransaction(
+      address!,
+      address!,
+      srcChain,
+      sellAmount,
+      srcTx,
+      dstChain,
+      buyAmount,
+      slippage
     );
 
-    if (!chainID) return;
-    setButtonText("approving");
-    const hash = await approveAllowance();
-    if (hash) {
-      setButtonText("bridging");
-      const message = await bridgeToken();
-      if (message) {
-        const messagehash = keccak256(message);
+    setSrcTx(srcTx);
+  }
 
-        const isConfirmed = await attestationStatus(messagehash);
+  async function updateTransactionOfDB(dstTx: string) {
+    if (!srcTx) return;
 
-        if (isConfirmed) {
-          const chainID = await switchChain(
-            chains[parseInt(buyToken!) - 1].testnetChainId
-          );
-          if (!chainID) return;
-          const response = await getAttestation(messagehash);
-          const data = await writeAsync({
-            args: [message, response.attestation],
-          });
-          console.log(data);
+    await updateTransaction(srcTx, dstTx, false);
+  }
+
+  async function handleBridge() {
+    try {
+      setIsLoading(true);
+      setButtonText("");
+      const chainID = await switchChain(
+        chains[parseInt(sellToken!) - 1].testnetChainId
+      );
+
+      if (!chainID) return;
+      setButtonText("approving");
+      const hash = await approveAllowance();
+      if (hash) {
+        setButtonText("bridging");
+        const message = await bridgeToken();
+        if (message) {
+          const messagehash = keccak256(message);
+
+          await addTransactionToDB(messagehash);
+
+          const isConfirmed = await attestationStatus(messagehash);
+
+          if (isConfirmed) {
+            const chainID = await switchChain(
+              chains[parseInt(buyToken!) - 1].testnetChainId
+            );
+            if (!chainID) return;
+            const response = await getAttestation(messagehash);
+            const { hash } = await writeAsync({
+              args: [message, response.attestation],
+            });
+
+            console.log(hash);
+            await updateTransactionOfDB(hash);
+          }
         }
-
-        const response = await getAttestation(messagehash);
-        console.log(response);
       }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+      setButtonText("Bridge");
     }
-    setIsLoading(false);
-    setButtonText("Bridge");
   }
 
   return (
