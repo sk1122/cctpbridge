@@ -5,16 +5,16 @@ import useBridge from "@/hooks/useBridge";
 import useSwitchChain from "@/hooks/useSwitchChain";
 import { chains } from "@/lib/data";
 import { useTokenStore } from "@/store";
+import addTransaction from "@/utils/addTransaction";
 import getAttestation from "@/utils/getAttestation";
+import updateTransaction from "@/utils/updateTransaction";
 import { useState } from "react";
 import { keccak256 } from "viem";
-import { useAccount, useContractWrite, usePrepareContractWrite } from "wagmi";
+import { useAccount, useContractWrite } from "wagmi";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
 import { CustomConnectButton } from "./custom-connect-button";
-import addTransaction from "@/utils/addTransaction";
-import updateTransaction from "@/utils/updateTransaction";
 
 export const Box = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
