@@ -1,20 +1,22 @@
 import { MessageTransmitterABI } from "@/constants/abi/MessageTransmitter";
 import useApprove from "@/hooks/useApprove";
+import useAttestation from "@/hooks/useAttestation";
 import useBridge from "@/hooks/useBridge";
 import useSwitchChain from "@/hooks/useSwitchChain";
 import { chains } from "@/lib/data";
 import { useTokenStore } from "@/store";
 import getAttestation from "@/utils/getAttestation";
-import sleep from "@/utils/sleep";
+import { useState } from "react";
 import { keccak256 } from "viem";
 import { useAccount, useContractWrite } from "wagmi";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
 import { CustomConnectButton } from "./custom-connect-button";
-import useAttestation from "@/hooks/useAttestation";
 
 export const Box = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [buttonText, setButtonText] = useState<string>("Bridge");
   const { isConnected } = useAccount();
   const { approveAllowance } = useApprove();
   const { bridgeToken } = useBridge();
@@ -28,14 +30,17 @@ export const Box = () => {
   });
 
   async function handleBridge() {
+    setIsLoading(true);
+    setButtonText("");
     const chainID = await switchChain(
       chains[parseInt(sellToken!) - 1].testnetChainId
     );
 
     if (!chainID) return;
-
+    setButtonText("approving");
     const hash = await approveAllowance();
     if (hash) {
+      setButtonText("bridging");
       const message = await bridgeToken();
       if (message) {
         const messagehash = keccak256(message);
@@ -58,6 +63,8 @@ export const Box = () => {
         console.log(response);
       }
     }
+    setIsLoading(false);
+    setButtonText("Bridge");
   }
 
   return (
@@ -69,8 +76,9 @@ export const Box = () => {
       </div>
       {isConnected ? (
         <Button
-          text="Bridge"
           active={buyToken && sellToken ? true : false}
+          isLoading={isLoading}
+          text={buttonText}
           onClick={handleBridge}
         />
       ) : (
