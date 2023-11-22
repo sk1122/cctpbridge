@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
-      const { sender, receiver, srcChain, srcToken, srcTx, dstChain, dstToken, slippage } = req.body;
+      const { sender, receiver, srcChain, srcToken, srcTx, srcMessage, dstChain, dstToken, slippage } = req.body;
 
       const updatedAt = new Date(Date.now()).toISOString();
 
@@ -16,6 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           srcChain,
           srcToken,
           srcTx,
+          srcMessage,
           dstChain,
           dstToken,
           slippage,

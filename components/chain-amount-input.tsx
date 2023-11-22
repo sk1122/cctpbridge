@@ -9,8 +9,7 @@ export const ChainAmountInput = ({
   text: string;
   payingToken: boolean;
 }) => {
-  const { setSellAmount, setBuyAmount, sellAmount, buyAmount } =
-    useTokenStore();
+  const { setSellAmount, setBuyAmount, sellAmount } = useTokenStore();
 
   return (
     <div className="flex px-3 py-2 bg-[#1b1b1b] rounded-xl justify-center items-center w-full h-full">
@@ -22,10 +21,10 @@ export const ChainAmountInput = ({
           placeholder="0"
           className="bg-transparent text-xl"
           disabled={!payingToken}
+          value={sellAmount}
           onChange={(e) => {
-            payingToken
-              ? setSellAmount(e.target.value)
-              : setBuyAmount(e.target.value);
+            setSellAmount(e.target.value);
+            setBuyAmount(e.target.value);
           }}
         />
       </div>

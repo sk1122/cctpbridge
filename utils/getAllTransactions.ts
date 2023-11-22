@@ -1,7 +1,7 @@
 const getAllTransactions = async (address: string) => {
     try {
         const res = await fetch(`/api/getAllTransactions?address=${address}`, {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Content-type": "application/json ",
             },

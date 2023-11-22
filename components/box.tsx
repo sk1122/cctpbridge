@@ -41,9 +41,10 @@ export const Box = () => {
     address: "0xa9fB1b3009DCb79E2fe346c16a604B8Fa8aE0a79",
   });
 
-  async function addTransactionToDB(srcTx: string) {
+  async function addTransactionToDB(srcMessage: `0x${string}`) {
     const srcChain = chains[parseInt(sellToken!) - 1].chainId;
     const dstChain = chains[parseInt(buyToken!) - 1].chainId;
+    const srcTx = keccak256(srcMessage);
     const slippage = 1;
 
     await addTransaction(
@@ -52,6 +53,7 @@ export const Box = () => {
       srcChain,
       sellAmount,
       srcTx,
+      srcMessage,
       dstChain,
       buyAmount,
       slippage
