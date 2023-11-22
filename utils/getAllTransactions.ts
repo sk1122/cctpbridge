@@ -1,4 +1,4 @@
-const updateTransaction = async (address: string) => {
+const getAllTransactions = async (address: string) => {
     try {
         const res = await fetch(`/api/getAllTransactions?address=${address}`, {
             method: "POST",
@@ -13,4 +13,4 @@ const updateTransaction = async (address: string) => {
     }
 }
 
-export default updateTransaction
+export default getAllTransactions

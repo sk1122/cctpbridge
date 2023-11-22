@@ -8,6 +8,7 @@ import { useTokenStore } from "@/store";
 import addTransaction from "@/utils/addTransaction";
 import getAttestation from "@/utils/getAttestation";
 import updateTransaction from "@/utils/updateTransaction";
+import { ArrowDownUp } from "lucide-react";
 import { useState } from "react";
 import { keccak256 } from "viem";
 import { useAccount, useContractWrite } from "wagmi";
@@ -22,8 +23,16 @@ export const Box = () => {
   const { isConnected, address } = useAccount();
   const { approveAllowance } = useApprove();
   const { bridgeToken } = useBridge();
-  const { sellToken, buyToken, sellAmount, buyAmount, setSrcTx, srcTx } =
-    useTokenStore();
+  const {
+    sellToken,
+    buyToken,
+    setSellToken,
+    setBuyToken,
+    sellAmount,
+    buyAmount,
+    setSrcTx,
+    srcTx,
+  } = useTokenStore();
   const { switchChain } = useSwitchChain();
   const { attestationStatus } = useAttestation();
   const { writeAsync } = useContractWrite({
@@ -53,11 +62,13 @@ export const Box = () => {
 
   async function updateTransactionOfDB(dstTx: string) {
     if (!srcTx) return;
-
     await updateTransaction(srcTx, dstTx, false);
   }
 
   async function handleBridge() {
+    if (!buyToken && !sellToken) return;
+    if (buyToken === sellToken) return;
+
     try {
       setIsLoading(true);
       setButtonText("");
@@ -72,10 +83,9 @@ export const Box = () => {
         setButtonText("bridging");
         const message = await bridgeToken();
         if (message) {
+          await addTransactionToDB(message);
+
           const messagehash = keccak256(message);
-
-          await addTransactionToDB(messagehash);
-
           const isConfirmed = await attestationStatus(messagehash);
 
           if (isConfirmed) {
@@ -104,13 +114,28 @@ export const Box = () => {
   return (
     <div className="shadow-2xl shadow-cyan-500 w-[462px] bg-black rounded-xl h-full flex flex-col px-3 pb-3 justify-center items-center space-y-3">
       <BoxHeader />
-      <div className="w-full h-full space-y-2">
+      <div className="w-full h-full">
         <ChainAmountInput text="You Pay" payingToken={true} />
+        <div className="flex justify-center -my-2.5">
+          <button
+            className="bg-gray-800 p-1.5 rounded-full"
+            onClick={() => {
+              if (sellToken && buyToken) {
+                setSellToken(buyToken);
+                setBuyToken(sellToken);
+              }
+            }}
+          >
+            <ArrowDownUp className="w-4 h-4 " />
+          </button>
+        </div>
         <ChainAmountInput text="You Get" payingToken={false} />
       </div>
       {isConnected ? (
         <Button
-          active={buyToken && sellToken ? true : false}
+          active={
+            buyToken && sellToken && buyToken !== sellToken ? true : false
+          }
           isLoading={isLoading}
           text={buttonText}
           onClick={handleBridge}

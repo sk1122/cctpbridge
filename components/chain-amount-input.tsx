@@ -17,7 +17,8 @@ export const ChainAmountInput = ({
       <div className="w-full h-full flex flex-col justify-center items-start">
         <p className="text-xs px-3 text-gray-500">{text}</p>
         <Input
-          type="text"
+          type="number"
+          step="any"
           placeholder="0"
           className="bg-transparent text-xl"
           disabled={!payingToken}
