@@ -68,7 +68,7 @@ export const Box = () => {
   }
 
   async function handleBridge() {
-    if (!buyToken && !sellToken) return;
+    if (!buyToken && !sellToken && !isConnected) return;
     if (buyToken === sellToken) return;
 
     try {
@@ -133,18 +133,16 @@ export const Box = () => {
         </div>
         <ChainAmountInput text="You Get" payingToken={false} />
       </div>
-      {isConnected ? (
-        <Button
-          active={
-            buyToken && sellToken && buyToken !== sellToken ? true : false
-          }
-          isLoading={isLoading}
-          text={buttonText}
-          onClick={handleBridge}
-        />
-      ) : (
-        <CustomConnectButton />
-      )}
+      <Button
+        active={
+          buyToken && sellToken && isConnected && buyToken !== sellToken
+            ? true
+            : false
+        }
+        isLoading={isLoading}
+        text={buttonText}
+        onClick={handleBridge}
+      />
     </div>
   );
 };
