@@ -1,0 +1,159 @@
+import React from "react";
+import { Input } from "./input";
+import {
+  ChevronRight,
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+} from "lucide-react";
+import Feedback from "./Feedback";
+
+const Info = [
+  {
+    name: "Company",
+    link: "",
+  },
+  {
+    name: "Products",
+    link: "",
+  },
+  {
+    name: "Enginnering",
+    link: "",
+  },
+  {
+    name: "Services",
+    link: "",
+  },
+  {
+    name: "Productions",
+    link: "",
+  },
+];
+
+const About = [
+  {
+    name: "Gallery",
+    link: "",
+  },
+  {
+    name: "Technologies",
+    link: "",
+  },
+  {
+    name: "Contacts",
+    link: "",
+  },
+];
+
+const Contact = [
+  {
+    name: "+1 (999) 999-99-99",
+    link: "",
+  },
+  {
+    name: "hello@logoipsum.com",
+    link: "",
+  },
+  {
+    name: "London",
+    link: "",
+  },
+];
+
+const Socials = [
+  {
+    icon: <Facebook />,
+    link: "",
+  },
+  {
+    icon: <Instagram />,
+    link: "",
+  },
+  {
+    icon: <Twitter />,
+    link: "",
+  },
+  {
+    icon: <Youtube />,
+    link: "",
+  },
+];
+
+export default function Footer() {
+  return (
+    <div className="container mx-auto flex items-start justify-between">
+      <section className="w-2/4">
+        <div className="flex justify-between items-start">
+          <img src="/logo.svg" alt="" />
+          <div className="flex gap-10">
+            <div>
+              <h2 className="mb-6 text-sm font-semibold uppercase text-[#FF7D1F]">
+                Info
+              </h2>
+              <ul className="font-medium">
+                {Info.map((data, index) => (
+                  <li className="mb-2" key={index}>
+                    <a href="#" className=" hover:underline">
+                      {data.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="mb-6 text-sm font-semibold uppercase text-[#FF7D1F]">
+                About us
+              </h2>
+              <ul className="font-medium">
+                {About.map((data, index) => (
+                  <li className="mb-2" key={index}>
+                    <a href="#" className=" hover:underline">
+                      {data.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h2 className="mb-6 text-sm font-semibold uppercase text-[#FF7D1F]">
+            Contact us
+          </h2>
+          <ul className="font-medium">
+            {Contact.map((data, index) => (
+              <li className="mb-2" key={index}>
+                <a href="#" className=" hover:underline">
+                  {data.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="mt-10 mb-20">
+          <h2 className="mb-6 text-sm font-semibold uppercase text-[#FF7D1F]">
+            Subscription
+          </h2>
+          <div className="border border-white rounded-lg flex items-center">
+            <Input className={"text-sm font-medium"} placeholder="E-mail" />
+            <div className="w-0.5 bg-slate-300 h-6"></div>
+            <ChevronRight className="mx-2 text-[#FF7D1F]" />
+          </div>
+        </div>
+        <div className="flex justify-between items-end mb-8">
+          <div className="flex gap-4 items-center">
+            {Socials.map((social, index) => (
+              <div className="p-3 border border-white rounded-full" key={index}>
+                {social.icon}
+              </div>
+            ))}
+          </div>
+          <p className="text-sm text-gray-400">© 2023 — Copyright</p>
+        </div>
+      </section>
+      <Feedback />
+    </div>
+  );
+}

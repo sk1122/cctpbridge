@@ -114,7 +114,7 @@ export const Box = () => {
   }
 
   return (
-    <div className="shadow-2xl border-2 border-[#FF7D1F] shadow-[#FF7D1F] w-[462px] bg-[#070708] rounded-xl h-full flex flex-col px-3 pb-3 justify-center items-center space-y-3">
+    <div className="shadow-2xl border border-[#FF7D1F] shadow-[#FF7D1F] w-[462px] bg-[#070708] rounded-xl h-full flex flex-col px-3 pb-3 justify-center items-center space-y-3">
       <BoxHeader />
       <div className="w-full h-full">
         <ChainAmountInput text="You Pay" payingToken={true} />
