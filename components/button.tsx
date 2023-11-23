@@ -22,7 +22,7 @@ export const Button: FC<ButtonProps> = ({
       className={
         (!active
           ? "bg-[#1b1b1b] cursor-not-allowed "
-          : "bg-[#FDAE40] text-black cursor-pointer ") +
+          : "bg-[#FF7D1F] text-black cursor-pointer ") +
         "w-full h-full flex justify-center items-center p-4 rounded-xl"
       }
       {...props}
