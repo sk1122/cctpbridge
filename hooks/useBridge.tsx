@@ -35,7 +35,7 @@ export default function useBridge() {
         args: [amount, destinationDomain, address!],
       });
 
-      const { logs } = await waitForTransactionReceipt({
+      const { logs, transactionHash } = await waitForTransactionReceipt({
         hash: hash,
       });
 
@@ -44,8 +44,6 @@ export default function useBridge() {
           x?.topics[0]?.toLowerCase() ===
           "0x8c5261668696ce22758910d05bab8f186d6eb247ceac2af2e82c7dc17669b036".toLowerCase()
       );
-
-      console.log(log);
 
       const messagedata = decodeEventLog({
         abi: MessageTransmitterABI,
@@ -57,7 +55,7 @@ export default function useBridge() {
 
       const message = messagedata?.args?.message;
 
-      return message;
+      return { message, transactionHash };
     } catch (error) {
       console.log(error);
     }

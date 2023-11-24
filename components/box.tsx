@@ -15,7 +15,6 @@ import { useAccount, useContractWrite } from "wagmi";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
-import { CustomConnectButton } from "./custom-connect-button";
 
 export const Box = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -41,10 +40,12 @@ export const Box = () => {
     address: "0xa9fB1b3009DCb79E2fe346c16a604B8Fa8aE0a79",
   });
 
-  async function addTransactionToDB(srcMessage: `0x${string}`) {
+  async function addTransactionToDB(
+    srcMessage: `0x${string}`,
+    srcTx: `0x${string}`
+  ) {
     const srcChain = chains[parseInt(sellToken!) - 1].chainId;
     const dstChain = chains[parseInt(buyToken!) - 1].chainId;
-    const srcTx = keccak256(srcMessage);
     const slippage = 1;
 
     await addTransaction(
@@ -83,11 +84,11 @@ export const Box = () => {
       const hash = await approveAllowance();
       if (hash) {
         setButtonText("bridging");
-        const message = await bridgeToken();
-        if (message) {
-          await addTransactionToDB(message);
+        const data = await bridgeToken();
+        if (data?.message && data?.transactionHash) {
+          await addTransactionToDB(data.message, data.transactionHash);
 
-          const messagehash = keccak256(message);
+          const messagehash = keccak256(data.message);
           const isConfirmed = await attestationStatus(messagehash);
 
           if (isConfirmed) {
@@ -97,7 +98,7 @@ export const Box = () => {
             if (!chainID) return;
             const response = await getAttestation(messagehash);
             const { hash } = await writeAsync({
-              args: [message, response.attestation],
+              args: [data.message, response.attestation],
             });
 
             console.log(hash);
