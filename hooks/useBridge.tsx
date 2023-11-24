@@ -1,14 +1,22 @@
 import { ABI } from "@/constants/abi";
 import { MessageTransmitterABI } from "@/constants/abi/MessageTransmitter";
 import { chains } from "@/lib/data";
-import { publicClientViem } from "@/pages/_app";
 import { useTokenStore } from "@/store";
 import { decodeEventLog, parseUnits } from "viem";
-import { useAccount, useContractWrite } from "wagmi";
+import {
+  useAccount,
+  useChainId,
+  useContractWrite,
+  usePublicClient,
+} from "wagmi";
 
 export default function useBridge() {
-  const { sellAmount, sellToken, buyToken } = useTokenStore();
+  const { sellAmount, buyToken } = useTokenStore();
   const { address } = useAccount();
+  const chainId = useChainId();
+  const { waitForTransactionReceipt } = usePublicClient({
+    chainId: chainId,
+  });
   const { writeAsync } = useContractWrite({
     abi: ABI,
     functionName: "bridge",
@@ -27,7 +35,7 @@ export default function useBridge() {
         args: [amount, destinationDomain, address!],
       });
 
-      const { logs } = await publicClientViem.waitForTransactionReceipt({
+      const { logs } = await waitForTransactionReceipt({
         hash: hash,
       });
 

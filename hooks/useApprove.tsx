@@ -1,12 +1,10 @@
 import { USDCABI } from "@/constants/abi/USDC";
 import { useTokenStore } from "@/store";
-import React from "react";
 import { parseUnits } from "viem";
 import {
   useChainId,
   useContractWrite,
-  usePublicClient,
-  useWaitForTransaction,
+  usePublicClient
 } from "wagmi";
 
 export default function useApprove() {

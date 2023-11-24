@@ -1,23 +1,19 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import "@/styles/globals.css";
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import {
+  darkTheme,
+  getDefaultWallets,
+  RainbowKitProvider,
+} from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
-import { createPublicClient, http } from "viem";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
-  arbitrum,
-  base,
-  mainnet,
-  optimism,
-  polygon,
-  zora,
-  polygonMumbai,
   arbitrumGoerli,
-  optimismGoerli,
-  goerli,
   avalancheFuji,
+  goerli,
+  optimismGoerli,
 } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 
@@ -38,15 +34,10 @@ const wagmiConfig = createConfig({
   publicClient,
 });
 
-export const publicClientViem = createPublicClient({
-  chain: goerli,
-  transport: http(),
-});
-
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
+      <RainbowKitProvider chains={chains} theme={darkTheme()}>
         <div className="bg-[url('/hero.svg')]">
           <Navbar />
           <Component {...pageProps} />
