@@ -46,16 +46,20 @@ export const Box = () => {
   ) {
     const srcChain = chains[parseInt(sellToken!) - 1].chainId;
     const dstChain = chains[parseInt(buyToken!) - 1].chainId;
+    const srcToken = chains[parseInt(sellToken!) - 1].tokens[0].address;
+    const dstToken = chains[parseInt(buyToken!) - 1].tokens[0].address;
     const slippage = 1;
 
     await addTransaction(
       address!,
       address!,
       srcChain,
+      srcToken,
       sellAmount,
       srcTx,
       srcMessage,
       dstChain,
+      dstToken,
       buyAmount,
       slippage
     );

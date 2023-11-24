@@ -1,4 +1,4 @@
-const addTransaction = async (sender: string, receiver: string, srcChain: number, srcToken: string, srcTx: string, srcMessage: string, dstChain: number, dstToken: string, slippage: number) => {
+const addTransaction = async (sender: string, receiver: string, srcChain: number, srcToken: string, srcAmount: string, srcTx: string, srcMessage: string, dstChain: number, dstToken: string, dstAmount: string, slippage: number) => {
     try {
         const res = await fetch("/api/addTransaction", {
             method: "POST",
@@ -10,10 +10,12 @@ const addTransaction = async (sender: string, receiver: string, srcChain: number
                 receiver: receiver,
                 srcChain: srcChain,
                 srcToken: srcToken,
+                srcAmount: srcAmount,
                 srcTx: srcTx,
                 srcMessage: srcMessage,
                 dstChain: dstChain,
                 dstToken: dstToken,
+                dstAmount: dstAmount,
                 slippage: slippage
             }),
         });
