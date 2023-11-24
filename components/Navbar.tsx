@@ -7,7 +7,7 @@ export default function Navbar() {
   const isHomePage = router.asPath === "/";
 
   return (
-    <div className="container mx-auto py-5 flex justify-between items-center">
+    <div className="container mx-auto py-5 flex justify-between items-center px-4">
       <img
         className="cursor-pointer"
         src="/logo.svg"

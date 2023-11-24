@@ -47,8 +47,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
-        <Navbar />
-        <Component {...pageProps} />
+        <div className="bg-[url('/hero.svg')]">
+          <Navbar />
+          <Component {...pageProps} />
+        </div>
         <Footer />
       </RainbowKitProvider>
     </WagmiConfig>

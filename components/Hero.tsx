@@ -5,10 +5,12 @@ export default function Hero() {
   const router = useRouter();
 
   return (
-    <div className="w-full min-h-[calc(100vh-92px)] flex justify-center items-center">
+    <div className="w-full min-h-[calc(100vh-92px)] flex justify-center items-center px-4">
       <div className="text-center">
-        <h1 className="font-bold text-white text-7xl">CCTP Bridge</h1>
-        <h3 className="text-[#CFCFCF] font-semibold text-4xl max-w-4xl mt-12">
+        <h1 className="font-bold text-white text-5xl lg:text-7xl">
+          CCTP Bridge
+        </h1>
+        <h3 className="text-[#CFCFCF] font-semibold text-2xl lg:text-4xl max-w-4xl mt-12">
           Trustless Cross chain bridges powered by CCTP, a Public good by Fetcch
         </h3>
         <button

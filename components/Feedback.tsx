@@ -7,10 +7,12 @@ export default function Feedback() {
     <div className="bg-[#17181C] rounded-lg px-6 py-8">
       <p className="uppercase text-[#FF7D1F] font-medium text-xs">Feedback</p>
       <div className="mt-5">
-        <h1 className="text-3xl text-gray-500">
+        <h1 className="text-2xl lg:text-3xl text-gray-500">
           Seeking personalized support?
         </h1>
-        <h1 className="text-3xl text-white">Request a call from our team</h1>
+        <h1 className="text-2xl lg:text-3xl text-white">
+          Request a call from our team
+        </h1>
       </div>
       <div className="mt-6">
         <Input className={"border border-white"} placeholder="Your Name" />
