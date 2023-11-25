@@ -1,15 +1,15 @@
 import { MessageTransmitterABI } from "@/constants/abi/MessageTransmitter";
 import useAttestation from "@/hooks/useAttestation";
 import useSwitchChain from "@/hooks/useSwitchChain";
+import formatAddress from "@/utils/formatAddress";
 import getAllTransactions from "@/utils/getAllTransactions";
 import getAttestation from "@/utils/getAttestation";
 import updateTransaction from "@/utils/updateTransaction";
 import { useEffect, useState } from "react";
-import { keccak256 } from "viem";
 import { useAccount, useContractWrite } from "wagmi";
-import { Button } from "./button";
 import Spinner from "./UI/Spinner";
-import formatAddress from "@/utils/formatAddress";
+import { Button } from "./button";
+import getChainName from "@/utils/getChainName";
 
 interface ITransactions {
   id: string;
@@ -19,10 +19,12 @@ interface ITransactions {
   receiver: `0x${string}`;
   srcChain: number;
   srcToken: string;
+  srcAmount: string;
   srcTx: `0x${string}`;
   srcMessage: `0x${string}`;
   dstChain: number;
   dstToken: string;
+  dstAmount: string;
   dstTx: string;
   slippage: number;
   pending: boolean;
@@ -30,8 +32,9 @@ interface ITransactions {
 
 export default function Transactions() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [transactionLoading, setTransactionLoading] = useState<boolean>(false);
   const [allTransactions, setAllTransactions] = useState<
-    null | ITransactions[]
+    null | ITransactions[] | []
   >(null);
   const { attestationStatus } = useAttestation();
   const { address } = useAccount();
@@ -63,17 +66,27 @@ export default function Transactions() {
         await updateTransaction(srcTx, hash, false);
       }
     } catch (error) {
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
   }
 
   async function fetchAllTransactions() {
-    if (!address) return;
-    const transactions = await getAllTransactions(address);
-    console.log(transactions);
-    if (transactions.length > 0) {
-      setAllTransactions(transactions);
+    try {
+      setTransactionLoading(true);
+      const transactions = await getAllTransactions(address!);
+      console.log(transactions);
+      if (transactions.length > 0) {
+        setAllTransactions(transactions);
+      }
+      if (transactions.length === 0) {
+        setAllTransactions([]);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setTransactionLoading(false);
     }
   }
 
@@ -86,7 +99,9 @@ export default function Transactions() {
       <div className="-m-1.5 overflow-x-auto">
         <div className="p-1.5 min-w-full inline-block align-middle">
           <div className="overflow-hidden">
-            {allTransactions ? (
+            {!transactionLoading &&
+            allTransactions &&
+            allTransactions?.length > 0 ? (
               <table className="min-w-full divide-y divide-gray-200">
                 <thead>
                   <tr>
@@ -106,6 +121,18 @@ export default function Transactions() {
                       scope="col"
                       className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
                     >
+                      Sent Amount
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                    >
+                      Received Amount
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                    >
                       View srcTx
                     </th>
                     <th
@@ -120,10 +147,16 @@ export default function Transactions() {
                   {allTransactions?.map((tx) => (
                     <tr>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                        {tx.srcChain}
+                        {getChainName(tx.srcChain)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                        {tx.dstChain}
+                        {getChainName(tx.dstChain)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                        {tx.srcAmount}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                        {tx.dstAmount}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                         {formatAddress(tx.srcTx)}
@@ -135,7 +168,7 @@ export default function Transactions() {
                           <Button
                             className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none"
                             text="claim"
-                            isLoading={false}
+                            isLoading={isLoading}
                             active={true}
                             onClick={() => {
                               claimTokens(tx.dstChain, tx.srcMessage, tx.srcTx);
@@ -149,7 +182,7 @@ export default function Transactions() {
               </table>
             ) : (
               <div className="flex justify-center my-4">
-                <Spinner />
+                {transactionLoading ? <Spinner /> : <h1>No data found</h1>}
               </div>
             )}
           </div>

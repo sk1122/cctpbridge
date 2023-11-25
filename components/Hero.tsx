@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
-import React from "react";
 
 export default function Hero() {
   const router = useRouter();
-
   return (
     <div className="w-full min-h-[calc(100vh-92px)] flex justify-center items-center px-4">
       <div className="text-center">

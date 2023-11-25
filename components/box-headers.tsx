@@ -2,8 +2,10 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowLeftRight, Cog, X } from "lucide-react";
 import Transactions from "./transactions";
 import Slippage from "./slippage";
+import { useAccount } from "wagmi";
 
 export const BoxHeader = () => {
+  const { isConnected } = useAccount();
   return (
     <div className="p-5 w-full h-full flex justify-between items-center">
       <div className="w-full h-full flex justify-start items-center space-x-4">
@@ -37,9 +39,11 @@ export const BoxHeader = () => {
         </Dialog.Root>
         <Dialog.Root>
           <Dialog.Trigger asChild>
-            <button>
-              <ArrowLeftRight />
-            </button>
+            {isConnected && (
+              <button>
+                <ArrowLeftRight />
+              </button>
+            )}
           </Dialog.Trigger>
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-40" />

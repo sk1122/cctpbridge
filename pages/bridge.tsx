@@ -4,7 +4,7 @@ import React from "react";
 export default function Bridge() {
   return (
     <main
-      className={`flex min-h-[calc(100vh-92px)] flex-col items-center justify-center container mx-auto`}
+      className={`flex min-h-[calc(100vh-92px)] flex-col items-center justify-center container mx-auto px-4`}
     >
       <Box />
     </main>
