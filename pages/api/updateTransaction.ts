@@ -6,6 +6,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             const { srcTx, dstTx, pending } = req.body;
 
+            console.log(srcTx, dstTx, "api")
+
             const updatedAt = new Date(Date.now()).toISOString();
 
             const project = await prisma.transaction.update({
@@ -18,6 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     pending
                 },
             });
+
+            console.log(project)
             res.status(200).json(project);
         } catch (error) {
             console.log(error);

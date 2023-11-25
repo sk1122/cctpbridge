@@ -69,6 +69,7 @@ export const Box = () => {
 
   async function updateTransactionOfDB(dstTx: string) {
     if (!srcTx) return;
+    console.log(srcTx, dstTx);
     await updateTransaction(srcTx, dstTx, false);
   }
 

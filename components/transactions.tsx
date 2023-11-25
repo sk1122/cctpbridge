@@ -6,10 +6,12 @@ import getAllTransactions from "@/utils/getAllTransactions";
 import getAttestation from "@/utils/getAttestation";
 import updateTransaction from "@/utils/updateTransaction";
 import { useEffect, useState } from "react";
-import { useAccount, useContractWrite } from "wagmi";
+import { useAccount, useChainId, useContractWrite } from "wagmi";
 import Spinner from "./UI/Spinner";
 import { Button } from "./button";
 import getChainName from "@/utils/getChainName";
+import { keccak256 } from "viem";
+import { chains } from "@/lib/data";
 
 interface ITransactions {
   id: string;
@@ -38,6 +40,7 @@ export default function Transactions() {
   >(null);
   const { attestationStatus } = useAttestation();
   const { address } = useAccount();
+  const chainID = useChainId();
   const { switchChain } = useSwitchChain();
   const { writeAsync } = useContractWrite({
     abi: MessageTransmitterABI,
@@ -52,12 +55,18 @@ export default function Transactions() {
   ) {
     try {
       setIsLoading(true);
-      const isConfirmed = await attestationStatus(srcTx);
+      const messagehash = keccak256(srcMessage);
+      const isConfirmed = await attestationStatus(messagehash);
+
+      console.log(srcTx, dstChain, srcMessage);
 
       if (isConfirmed) {
-        const chainID = await switchChain(dstChain);
-        if (!chainID) return;
-        const response = await getAttestation(srcTx);
+        const chain = chains.find((chain) => chain.chainId == dstChain);
+        if (chainID !== chain?.testnetChainId) {
+          await switchChain(dstChain);
+        }
+        if (chainID !== chain?.testnetChainId) return;
+        const response = await getAttestation(messagehash);
         const { hash } = await writeAsync({
           args: [srcMessage, response.attestation],
         });
