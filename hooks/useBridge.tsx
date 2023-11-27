@@ -39,6 +39,8 @@ export default function useBridge() {
         hash: hash,
       });
 
+      console.log(logs, transactionHash);
+
       const log = logs.filter(
         (x) =>
           x?.topics[0]?.toLowerCase() ===

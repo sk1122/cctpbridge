@@ -33,7 +33,6 @@ interface ITransactions {
 }
 
 export default function Transactions() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [transactionLoading, setTransactionLoading] = useState<boolean>(false);
   const [allTransactions, setAllTransactions] = useState<
     null | ITransactions[] | []
@@ -47,39 +46,6 @@ export default function Transactions() {
     functionName: "receiveMessage",
     address: "0xa9fB1b3009DCb79E2fe346c16a604B8Fa8aE0a79",
   });
-
-  async function claimTokens(
-    dstChain: number,
-    srcMessage: `0x${string}`,
-    srcTx: `0x${string}`
-  ) {
-    try {
-      setIsLoading(true);
-      const messagehash = keccak256(srcMessage);
-      const isConfirmed = await attestationStatus(messagehash);
-
-      console.log(srcTx, dstChain, srcMessage);
-
-      if (isConfirmed) {
-        const chain = chains.find((chain) => chain.chainId == dstChain);
-        if (chainID !== chain?.testnetChainId) {
-          await switchChain(dstChain);
-        }
-        if (chainID !== chain?.testnetChainId) return;
-        const response = await getAttestation(messagehash);
-        const { hash } = await writeAsync({
-          args: [srcMessage, response.attestation],
-        });
-
-        console.log(hash);
-        await updateTransaction(srcTx, hash, false);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
 
   async function fetchAllTransactions() {
     try {
@@ -103,89 +69,149 @@ export default function Transactions() {
     fetchAllTransactions();
   }, []);
 
+  function SingleTransaction({
+    tx,
+    isLastTransaction,
+  }: {
+    tx: ITransactions;
+    isLastTransaction: boolean;
+  }) {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    async function claimTokens(
+      dstChain: number,
+      srcMessage: `0x${string}`,
+      srcTx: `0x${string}`
+    ) {
+      try {
+        setIsLoading(true);
+        const messagehash = keccak256(srcMessage);
+        const isConfirmed = await attestationStatus(messagehash);
+
+        console.log(srcTx, dstChain, srcMessage);
+
+        if (isConfirmed) {
+          console.log("herewww");
+          const chain = chains.find((chain) => chain.chainId == dstChain);
+          if (chain?.testnetChainId && chainID !== chain?.testnetChainId) {
+            await switchChain(chain?.testnetChainId);
+          }
+          console.log("here");
+          if (chainID !== chain?.testnetChainId) return;
+          const response = await getAttestation(messagehash);
+          const { hash } = await writeAsync({
+            args: [srcMessage, response.attestation],
+          });
+
+          console.log(hash);
+          await updateTransaction(srcTx, hash, false);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    return (
+      <tr>
+        <td
+          className={`px-6 py-4 whitespace-nowrap text-sm font-medium text-white ${
+            isLastTransaction ? `rounded-bl-lg` : undefined
+          }`}
+        >
+          {getChainName(tx.srcChain)}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
+          {getChainName(tx.dstChain)}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
+          {tx.srcAmount}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
+          {tx.dstAmount}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
+          {formatAddress(tx.srcTx)}
+        </td>
+        <td
+          className={`px-6 py-4 whitespace-nowrap text-end text-sm font-medium ${
+            isLastTransaction ? `rounded-br-lg` : undefined
+          }`}
+        >
+          {tx.dstTx ? (
+            <>{formatAddress(tx.dstTx)}</>
+          ) : (
+            <Button
+              className="inline-flex items-center gap-x-2 text-sm px-4 py-1 font-semibold rounded-full bg-[#FF7D1F] text-white"
+              text="claim"
+              isLoading={isLoading}
+              active={true}
+              onClick={() => {
+                claimTokens(tx.dstChain, tx.srcMessage, tx.srcTx);
+              }}
+            />
+          )}
+        </td>
+      </tr>
+    );
+  }
+
   return (
     <div className="flex flex-col">
-      <div className="-m-1.5 overflow-x-auto">
-        <div className="p-1.5 min-w-full inline-block align-middle">
+      <div className="overflow-x-auto">
+        <div className="min-w-full inline-block align-middle">
           <div className="overflow-hidden">
             {!transactionLoading &&
             allTransactions &&
             allTransactions?.length > 0 ? (
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
+              <table className="min-w-full">
+                <thead className="bg-[#070708]">
                   <tr>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                     >
                       From
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                     >
                       To
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                     >
                       Sent Amount
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                     >
                       Received Amount
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-start text-xs font-medium text-white uppercase"
                     >
                       View srcTx
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
+                      className="px-6 py-3 text-end text-xs font-medium text-white uppercase"
                     >
                       View dstTx
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {allTransactions?.map((tx) => (
-                    <tr>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                        {getChainName(tx.srcChain)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                        {getChainName(tx.dstChain)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                        {tx.srcAmount}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                        {tx.dstAmount}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                        {formatAddress(tx.srcTx)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                        {tx.dstTx ? (
-                          <>{formatAddress(tx.dstTx)}</>
-                        ) : (
-                          <Button
-                            className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none"
-                            text="claim"
-                            isLoading={isLoading}
-                            active={true}
-                            onClick={() => {
-                              claimTokens(tx.dstChain, tx.srcMessage, tx.srcTx);
-                            }}
-                          />
-                        )}
-                      </td>
-                    </tr>
+                <tbody className="divide-y divide-gray-100 bg-[#17181C]">
+                  {allTransactions?.map((tx, index) => (
+                    <SingleTransaction
+                      tx={tx}
+                      isLastTransaction={allTransactions?.length - 1 === index}
+                    />
                   ))}
                 </tbody>
               </table>

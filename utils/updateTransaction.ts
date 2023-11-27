@@ -2,7 +2,7 @@ const updateTransaction = async (srcTx: string, dstTx: string, pending: boolean)
     console.log(srcTx, dstTx, "utils")
     try {
         const res = await fetch("/api/updateTransaction", {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-type": "application/json ",
             },

@@ -8,7 +8,7 @@ export default function Slippage() {
   return (
     <div>
       <Input
-        className="bg-gray-200 text-lg rounded-md"
+        className="bg-[#191A1E] text-lg rounded-md text-white"
         type="number"
         placeholder="Enter slippage"
         value={slippage}

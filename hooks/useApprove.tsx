@@ -27,7 +27,7 @@ export default function useApprove() {
         args: ["0x0e6039cd2FcE0890059ED31D5d188e0a23c241A1", amount],
       });
       await waitForTransactionReceipt({
-        hash,
+        hash : hash,
       });
       return hash;
     } catch (error) {
