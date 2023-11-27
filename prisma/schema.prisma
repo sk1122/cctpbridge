@@ -18,12 +18,12 @@ model transaction {
   srcChain   Int
   srcToken   String   @db.VarChar
   srcAmount  String   @db.VarChar
-  srcTx      String   @db.VarChar
+  srcTx      String   @unique @db.VarChar
   dstChain   Int
   dstToken   String   @db.VarChar
   dstAmount  String   @db.VarChar
-  dstTx      String?  @db.VarChar
+  dstTx      String?  @unique @db.VarChar
   slippage   Int
   pending    Boolean? @default(true)
-  srcMessage String   @db.VarChar
+  srcMessage String   @unique @db.VarChar
 }
