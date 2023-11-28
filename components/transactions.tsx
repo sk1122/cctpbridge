@@ -27,7 +27,7 @@ interface ITransactions {
   dstChain: number;
   dstToken: string;
   dstAmount: string;
-  dstTx: string;
+  dstTx: string | null;
   slippage: number;
   pending: boolean;
 }
@@ -76,6 +76,7 @@ export default function Transactions() {
     tx: ITransactions;
     isLastTransaction: boolean;
   }) {
+    const [dstTx, setDstTx] = useState<string | null>(tx.dstTx);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     async function claimTokens(
@@ -84,6 +85,7 @@ export default function Transactions() {
       srcTx: `0x${string}`
     ) {
       try {
+        if (isLoading) return;
         setIsLoading(true);
         const messagehash = keccak256(srcMessage);
         const isConfirmed = await attestationStatus(messagehash);
@@ -105,6 +107,7 @@ export default function Transactions() {
 
           console.log(hash);
           await updateTransaction(srcTx, hash, false);
+          setDstTx(hash);
         }
       } catch (error) {
         console.log(error);
@@ -139,8 +142,8 @@ export default function Transactions() {
             isLastTransaction ? `rounded-br-lg` : undefined
           }`}
         >
-          {tx.dstTx ? (
-            <>{formatAddress(tx.dstTx)}</>
+          {dstTx ? (
+            <>{formatAddress(dstTx)}</>
           ) : (
             <Button
               className="inline-flex items-center gap-x-2 text-sm px-4 py-1 font-semibold rounded-full bg-[#FF7D1F] text-white"
