@@ -29,7 +29,6 @@ export const Box = () => {
     setBuyToken,
     sellAmount,
     buyAmount,
-    setSrcTx,
     srcTx,
   } = useTokenStore();
   const { switchChain } = useSwitchChain();
@@ -63,12 +62,9 @@ export const Box = () => {
       buyAmount,
       slippage
     );
-
-    setSrcTx(srcTx);
   }
 
-  async function updateTransactionOfDB(dstTx: string) {
-    if (!srcTx) return;
+  async function updateTransactionOfDB(srcTx: `0x${string}`, dstTx: string) {
     console.log(srcTx, dstTx);
     await updateTransaction(srcTx, dstTx, false);
   }
@@ -107,7 +103,7 @@ export const Box = () => {
             });
 
             console.log(hash);
-            await updateTransactionOfDB(hash);
+            await updateTransactionOfDB(data?.transactionHash, hash);
           }
         }
       }

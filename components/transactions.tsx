@@ -99,15 +99,14 @@ export default function Transactions() {
             await switchChain(chain?.testnetChainId);
           }
           console.log("here");
-          if (chainID !== chain?.testnetChainId) return;
           const response = await getAttestation(messagehash);
           const { hash } = await writeAsync({
             args: [srcMessage, response.attestation],
           });
 
           console.log(hash);
-          await updateTransaction(srcTx, hash, false);
           setDstTx(hash);
+          await updateTransaction(srcTx, hash, false);
         }
       } catch (error) {
         console.log(error);
@@ -138,7 +137,7 @@ export default function Transactions() {
           {formatAddress(tx.srcTx)}
         </td>
         <td
-          className={`px-6 py-4 whitespace-nowrap text-end text-sm font-medium ${
+          className={`px-6 py-4 whitespace-nowrap text-end text-sm font-medium text-white ${
             isLastTransaction ? `rounded-br-lg` : undefined
           }`}
         >
