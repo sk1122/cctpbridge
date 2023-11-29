@@ -55,6 +55,7 @@ export default function useBridge() {
 
       console.log(messagedata);
 
+      //@ts-ignore
       const message = messagedata?.args?.message;
 
       return { message, transactionHash };
