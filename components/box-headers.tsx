@@ -8,9 +8,7 @@ export const BoxHeader = () => {
   const { isConnected } = useAccount();
   return (
     <div className="p-5 w-full h-full flex justify-between items-center">
-      <div className="w-full h-full flex justify-start items-center space-x-4">
-        <h1 className="font-semibold text-xl">Swap</h1>
-      </div>
+      <h1 className="font-semibold text-xl">Bridge</h1>
       <div className="w-full h-full flex justify-end items-center space-x-4">
         {/* <Dialog.Root>
           <Dialog.Trigger asChild>

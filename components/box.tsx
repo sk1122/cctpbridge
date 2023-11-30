@@ -121,7 +121,7 @@ export const Box = () => {
     <div className="shadow-2xl border border-[#FF7D1F] shadow-[#FF7D1F] w-full sm:w-[462px] bg-[#070708] rounded-xl h-full flex flex-col px-3 pb-3 justify-center items-center space-y-3">
       <BoxHeader />
       <div className="w-full h-full">
-        <ChainAmountInput text="You Pay" payingToken={true} />
+        <ChainAmountInput />
         <div className="flex justify-center -my-2.5">
           <button
             className="bg-gray-800 p-1.5 rounded-full"
@@ -135,7 +135,6 @@ export const Box = () => {
             <ArrowDownUp className="w-4 h-4 " />
           </button>
         </div>
-        <ChainAmountInput text="You Get" payingToken={false} />
       </div>
       <Button
         active={

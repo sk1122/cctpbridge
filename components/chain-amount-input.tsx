@@ -1,36 +1,44 @@
 import { useTokenStore } from "@/store";
-import { ChainSelect } from "./chain-select";
 import { Input } from "./input";
+import { useState } from "react";
 
-export const ChainAmountInput = ({
-  text,
-  payingToken,
-}: {
-  text: string;
-  payingToken: boolean;
-}) => {
-  const { setSellAmount, setBuyAmount, sellAmount } = useTokenStore();
+export const ChainAmountInput = () => {
+  const [isFocused, setIsFocused] = useState(false);
+  const { setSellAmount, sellAmount } = useTokenStore();
 
   return (
-    <div className="flex px-3 py-2 bg-[#17181C] rounded-xl justify-center items-center w-full h-full">
-      <div className="w-full h-full flex flex-col justify-center items-start">
-        <p className="text-xs px-3 text-gray-500">{text}</p>
-        <Input
-          type="number"
-          step="any"
-          placeholder="0"
-          className="bg-transparent text-xl"
-          disabled={!payingToken}
-          value={sellAmount}
-          onChange={(e) => {
-            setSellAmount(e.target.value);
-            setBuyAmount(e.target.value);
-          }}
-        />
+    <div
+      className={`px-4 py-5 bg-[#17181C] rounded-xl w-full h-full border ${
+        isFocused ? "border-[#FF7D1F]" : "border-[#464646]"
+      }`}
+    >
+      <div className="w-full h-full flex justify-between items-center">
+        <p className="font-medium text-[#7A7A7A]">Enter Amount</p>
+        <p className="font-medium text-[#7A7A7A]">Available Bal: $321</p>
       </div>
-      <div className="w-full h-full flex flex-col justify-center items-end space-y-1">
-        <ChainSelect payingToken={payingToken} />
-        <p className="text-xs text-gray-500">Balance: 0</p>
+      <div className="w-full h-full flex justify-between items-center mt-2">
+        <div className="flex items-center">
+          <img src="/asset/usdc.webp" alt="" className="w-5 h-5" />
+          <Input
+            type="number"
+            step="any"
+            placeholder="0"
+            className="bg-transparent px-2 py-1 text-xl text-[#FF7D1F] font-semibold"
+            value={sellAmount}
+            onFocus={() => {
+              setIsFocused(true);
+            }}
+            onBlur={() => {
+              setIsFocused(false);
+            }}
+            onChange={(e) => {
+              setSellAmount(e.target.value);
+            }}
+          />
+        </div>
+        <button className="bg-[#FF7D1F] px-3 py-1 rounded-lg text-sm font-semibold">
+          Max
+        </button>
       </div>
     </div>
   );
