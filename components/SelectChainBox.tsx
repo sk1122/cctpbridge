@@ -1,17 +1,27 @@
-import { ChevronDown, Search, SearchCheck, X } from "lucide-react";
-import React from "react";
-import * as Dialog from "@radix-ui/react-dialog";
-import { Input } from "./input";
 import { chains } from "@/lib/data";
+import { useTokenStore } from "@/store";
+import * as Dialog from "@radix-ui/react-dialog";
+import { ChevronDown, Search, X } from "lucide-react";
+import { Input } from "./input";
 
-export default function SelectChainBox({ title }: { title: string }) {
+export default function SelectChainBox({
+  title,
+  isFrom,
+}: {
+  title: string;
+  isFrom: boolean;
+}) {
+  const { setSellToken, sellToken, setBuyToken, buyToken } = useTokenStore();
+
   return (
     <div className="bg-[#17181C] text-[#7A7A7A] rounded-xl px-4 py-2 border border-[#464646] w-full">
       <p className="font-medium">{title}</p>
       <Dialog.Root>
         <Dialog.Trigger asChild>
           <div className="flex items-center justify-between text-white cursor-pointer mt-2">
-            <p className="font-semibold text-[#FF7D1F] text-xl">Ethereum</p>
+            <p className="font-semibold text-[#FF7D1F] text-xl">
+              {isFrom ? chains[sellToken].name : chains[buyToken].name}
+            </p>
             <ChevronDown className="w-4 h-4" />
           </div>
         </Dialog.Trigger>
@@ -37,19 +47,47 @@ export default function SelectChainBox({ title }: { title: string }) {
                 />
               </div>
               <div className="mt-4">
-                {chains.map((chain, index) => (
-                  <div
-                    className="flex items-center px-2 py-2 gap-3 hover:bg-[#2B2B2B] cursor-pointer rounded-lg"
-                    key={index}
-                  >
-                    <img
-                      src={chain.logoURI}
-                      alt={chain.name}
-                      className="w-8 h-8 rounded-lg"
-                    />
-                    <h1 className="text-xl text-white">{chain.name}</h1>
-                  </div>
-                ))}
+                {chains.map((chain, index) => {
+                  if (chain.isSupported) {
+                    return (
+                      <Dialog.Close
+                        asChild
+                        key={index}
+                        onClick={() => {
+                          isFrom ? setSellToken(index) : setBuyToken(index);
+                        }}
+                      >
+                        <div className="flex items-center px-2 py-2 gap-3 hover:bg-[#2B2B2B] cursor-pointer rounded-lg">
+                          <img
+                            src={chain.logoURI}
+                            alt={chain.name}
+                            className="w-8 h-8 rounded-lg"
+                          />
+                          <h1 className="text-xl text-white">{chain.name}</h1>
+                        </div>
+                      </Dialog.Close>
+                    );
+                  } else {
+                    return (
+                      <div
+                        className="flex items-center justify-between px-2 py-2 rounded-lg"
+                        key={index}
+                      >
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={chain.logoURI}
+                            alt={chain.name}
+                            className="w-8 h-8 rounded-lg"
+                          />
+                          <h1 className="text-xl text-white">{chain.name}</h1>
+                        </div>
+                        <p className="font-semibold text-sm text-white">
+                          (Coming soon)
+                        </p>
+                      </div>
+                    );
+                  }
+                })}
               </div>
             </Dialog.Description>
           </Dialog.Content>

@@ -42,10 +42,10 @@ export const Box = () => {
     srcMessage: `0x${string}`,
     srcTx: `0x${string}`
   ) {
-    const srcChain = chains[parseInt(sellToken!) - 1].chainId;
-    const dstChain = chains[parseInt(buyToken!) - 1].chainId;
-    const srcToken = chains[parseInt(sellToken!) - 1].tokens[0].address;
-    const dstToken = chains[parseInt(buyToken!) - 1].tokens[0].address;
+    const srcChain = chains[sellToken].chainId;
+    const dstChain = chains[buyToken].chainId;
+    const srcToken = chains[sellToken].tokens[0].address;
+    const dstToken = chains[buyToken].tokens[0].address;
     const slippage = 1;
 
     await addTransaction(
@@ -75,9 +75,7 @@ export const Box = () => {
     try {
       setIsLoading(true);
       setButtonText("");
-      const chainID = await switchChain(
-        chains[parseInt(sellToken!) - 1].testnetChainId
-      );
+      const chainID = await switchChain(chains[sellToken].testnetChainId);
 
       if (!chainID) return;
       setButtonText("approving");
@@ -92,9 +90,7 @@ export const Box = () => {
           const isConfirmed = await attestationStatus(messagehash);
 
           if (isConfirmed) {
-            const chainID = await switchChain(
-              chains[parseInt(buyToken!) - 1].testnetChainId
-            );
+            const chainID = await switchChain(chains[buyToken].testnetChainId);
             if (!chainID) return;
             const response = await getAttestation(messagehash);
             const hash = await releaseFunds(data.message, response.attestation);
@@ -117,7 +113,7 @@ export const Box = () => {
       <BoxHeader />
       <div className="w-full h-full flex flex-col gap-4">
         <div className="flex items-center">
-          <SelectChainBox title="From" />
+          <SelectChainBox title="From" isFrom={true} />
           <div className="flex justify-center -mx-2 z-10">
             <button
               className="bg-[#FF7D1F] p-1.5 rounded-full"
@@ -131,7 +127,7 @@ export const Box = () => {
               <ArrowRightLeft className="w-4 h-4 text-white" />
             </button>
           </div>
-          <SelectChainBox title="To" />
+          <SelectChainBox title="To" isFrom={false} />
         </div>
         <ChainAmountInput />
         <ArrivalTimeBox />
