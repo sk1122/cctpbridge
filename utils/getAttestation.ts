@@ -4,7 +4,7 @@ const getAttestation = async (messageHash: string) => {
       `https://iris-api-sandbox.circle.com/attestations/${messageHash}`
     );
     const response = await _response.json();
-    console.log("Attestation response: ", _response);
+    console.log("Attestation response: ", response);
 
     return response;
   } catch (error) {
