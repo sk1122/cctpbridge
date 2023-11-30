@@ -15,6 +15,7 @@ import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
 import ArrivalTimeBox from "./ArrivalTimeBox";
+import FeesBox from "./FeesBox";
 
 export const Box = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -128,6 +129,7 @@ export const Box = () => {
           </button>
         </div> */}
         <ArrivalTimeBox />
+        <FeesBox />
       </div>
       <Button
         active={
