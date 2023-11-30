@@ -22,7 +22,7 @@ export default function SelectChainBox({
             <p className="font-semibold text-[#FF7D1F] text-xl">
               {isFrom ? chains[sellToken].name : chains[buyToken].name}
             </p>
-            <ChevronDown className="w-4 h-4" />
+            <ChevronDown className="w-5 h-5 text-white" />
           </div>
         </Dialog.Trigger>
         <Dialog.Portal>
@@ -54,6 +54,14 @@ export default function SelectChainBox({
                         asChild
                         key={index}
                         onClick={() => {
+                          if (isFrom && index === buyToken) {
+                            setBuyToken(sellToken);
+                            setSellToken(index);
+                          }
+                          if (!isFrom && index === sellToken) {
+                            setSellToken(buyToken);
+                            setBuyToken(index);
+                          }
                           isFrom ? setSellToken(index) : setBuyToken(index);
                         }}
                       >

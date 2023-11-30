@@ -1,6 +1,4 @@
-import React from "react";
 import { Input } from "./input";
-import { Button } from "./button";
 
 export default function Feedback() {
   return (

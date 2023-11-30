@@ -69,8 +69,7 @@ export const Box = () => {
   }
 
   async function handleBridge() {
-    if (!buyToken && !sellToken && !isConnected) return;
-    if (buyToken === sellToken) return;
+    if (!isConnected || isLoading || buyToken === sellToken) return;
 
     try {
       setIsLoading(true);
@@ -118,10 +117,8 @@ export const Box = () => {
             <button
               className="bg-[#FF7D1F] p-1.5 rounded-full"
               onClick={() => {
-                if (sellToken && buyToken) {
-                  setSellToken(buyToken);
-                  setBuyToken(sellToken);
-                }
+                setSellToken(buyToken);
+                setBuyToken(sellToken);
               }}
             >
               <ArrowRightLeft className="w-4 h-4 text-white" />
@@ -134,11 +131,7 @@ export const Box = () => {
         <FeesBox />
       </div>
       <Button
-        active={
-          buyToken && sellToken && isConnected && buyToken !== sellToken
-            ? true
-            : false
-        }
+        active={isConnected && buyToken !== sellToken ? true : false}
         isLoading={isLoading}
         text={buttonText}
         onClick={handleBridge}
