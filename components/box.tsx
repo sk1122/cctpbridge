@@ -1,28 +1,20 @@
-import { MessageTransmitterABI } from "@/constants/abi/MessageTransmitter";
 import useApprove from "@/hooks/useApprove";
 import useAttestation from "@/hooks/useAttestation";
 import useBridge from "@/hooks/useBridge";
+import useRelease from "@/hooks/useRelease";
 import useSwitchChain from "@/hooks/useSwitchChain";
 import { chains } from "@/lib/data";
 import { useTokenStore } from "@/store";
 import addTransaction from "@/utils/addTransaction";
 import getAttestation from "@/utils/getAttestation";
 import updateTransaction from "@/utils/updateTransaction";
-import { ArrowDownUp } from "lucide-react";
 import { useState } from "react";
-import { formatEther, keccak256 } from "viem";
-import {
-  useAccount,
-  useBalance,
-  useChainId,
-  useContractWrite,
-  usePublicClient,
-} from "wagmi";
+import { keccak256 } from "viem";
+import { useAccount } from "wagmi";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
-import { ABI } from "@/constants/abi";
-import useRelease from "@/hooks/useRelease";
+import ArrivalTimeBox from "./ArrivalTimeBox";
 
 export const Box = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -120,9 +112,9 @@ export const Box = () => {
   return (
     <div className="shadow-2xl border border-[#FF7D1F] shadow-[#FF7D1F] w-full sm:w-[462px] bg-[#070708] rounded-xl h-full flex flex-col px-3 pb-3 justify-center items-center space-y-3">
       <BoxHeader />
-      <div className="w-full h-full">
+      <div className="w-full h-full flex flex-col gap-4">
         <ChainAmountInput />
-        <div className="flex justify-center -my-2.5">
+        {/* <div className="flex justify-center -my-2.5">
           <button
             className="bg-gray-800 p-1.5 rounded-full"
             onClick={() => {
@@ -134,7 +126,8 @@ export const Box = () => {
           >
             <ArrowDownUp className="w-4 h-4 " />
           </button>
-        </div>
+        </div> */}
+        <ArrivalTimeBox />
       </div>
       <Button
         active={
