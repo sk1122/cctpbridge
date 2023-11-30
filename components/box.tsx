@@ -16,6 +16,8 @@ import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
 import ArrivalTimeBox from "./ArrivalTimeBox";
 import FeesBox from "./FeesBox";
+import SelectChainBox from "./SelectChainBox";
+import { ArrowRightLeft } from "lucide-react";
 
 export const Box = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -114,20 +116,24 @@ export const Box = () => {
     <div className="shadow-2xl border border-[#FF7D1F] shadow-[#FF7D1F] w-full sm:w-[462px] bg-[#070708] rounded-xl h-full flex flex-col px-3 pb-3 justify-center items-center space-y-3">
       <BoxHeader />
       <div className="w-full h-full flex flex-col gap-4">
+        <div className="flex items-center">
+          <SelectChainBox title="From" />
+          <div className="flex justify-center -mx-2 z-10">
+            <button
+              className="bg-[#FF7D1F] p-1.5 rounded-full"
+              onClick={() => {
+                if (sellToken && buyToken) {
+                  setSellToken(buyToken);
+                  setBuyToken(sellToken);
+                }
+              }}
+            >
+              <ArrowRightLeft className="w-4 h-4 text-white" />
+            </button>
+          </div>
+          <SelectChainBox title="To" />
+        </div>
         <ChainAmountInput />
-        {/* <div className="flex justify-center -my-2.5">
-          <button
-            className="bg-gray-800 p-1.5 rounded-full"
-            onClick={() => {
-              if (sellToken && buyToken) {
-                setSellToken(buyToken);
-                setBuyToken(sellToken);
-              }
-            }}
-          >
-            <ArrowDownUp className="w-4 h-4 " />
-          </button>
-        </div> */}
         <ArrivalTimeBox />
         <FeesBox />
       </div>
