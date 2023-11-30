@@ -12,6 +12,7 @@ import { Button } from "./button";
 import getChainName from "@/utils/getChainName";
 import { keccak256 } from "viem";
 import { chains } from "@/lib/data";
+import useRelease from "@/hooks/useRelease";
 
 interface ITransactions {
   id: string;
@@ -76,6 +77,7 @@ export default function Transactions() {
     tx: ITransactions;
     isLastTransaction: boolean;
   }) {
+    const { releaseFunds } = useRelease();
     const [dstTx, setDstTx] = useState<string | null>(tx.dstTx);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -100,10 +102,8 @@ export default function Transactions() {
           }
           console.log("here");
           const response = await getAttestation(messagehash);
-          const { hash } = await writeAsync({
-            args: [srcMessage, response.attestation],
-          });
-
+          const hash = await releaseFunds(srcMessage, response.attestation);
+          if (!hash) return;
           console.log(hash);
           setDstTx(hash);
           await updateTransaction(srcTx, hash, false);

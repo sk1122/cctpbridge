@@ -12,7 +12,7 @@ export const BoxHeader = () => {
         <h1 className="font-semibold text-xl">Swap</h1>
       </div>
       <div className="w-full h-full flex justify-end items-center space-x-4">
-        <Dialog.Root>
+        {/* <Dialog.Root>
           <Dialog.Trigger asChild>
             <button>
               <Cog />
@@ -39,7 +39,7 @@ export const BoxHeader = () => {
               </Dialog.Description>
             </Dialog.Content>
           </Dialog.Portal>
-        </Dialog.Root>
+        </Dialog.Root> */}
         <Dialog.Root>
           <Dialog.Trigger asChild>
             {isConnected && (

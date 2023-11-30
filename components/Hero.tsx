@@ -15,7 +15,7 @@ export default function Hero() {
           className="px-10 py-3 border-2 border-white text-white bg-[#FF7D1F] rounded-full font-bold mt-10"
           onClick={() => router.push("/bridge")}
         >
-          Interact
+          Launch app
         </button>
       </div>
     </div>

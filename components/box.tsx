@@ -10,11 +10,19 @@ import getAttestation from "@/utils/getAttestation";
 import updateTransaction from "@/utils/updateTransaction";
 import { ArrowDownUp } from "lucide-react";
 import { useState } from "react";
-import { keccak256 } from "viem";
-import { useAccount, useContractWrite } from "wagmi";
+import { formatEther, keccak256 } from "viem";
+import {
+  useAccount,
+  useBalance,
+  useChainId,
+  useContractWrite,
+  usePublicClient,
+} from "wagmi";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
+import { ABI } from "@/constants/abi";
+import useRelease from "@/hooks/useRelease";
 
 export const Box = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -33,11 +41,7 @@ export const Box = () => {
   } = useTokenStore();
   const { switchChain } = useSwitchChain();
   const { attestationStatus } = useAttestation();
-  const { writeAsync } = useContractWrite({
-    abi: MessageTransmitterABI,
-    functionName: "receiveMessage",
-    address: "0xa9fB1b3009DCb79E2fe346c16a604B8Fa8aE0a79",
-  });
+  const { releaseFunds } = useRelease();
 
   async function addTransactionToDB(
     srcMessage: `0x${string}`,
@@ -98,10 +102,8 @@ export const Box = () => {
             );
             if (!chainID) return;
             const response = await getAttestation(messagehash);
-            const { hash } = await writeAsync({
-              args: [data.message, response.attestation],
-            });
-
+            const hash = await releaseFunds(data.message, response.attestation);
+            if (!hash) return;
             console.log(hash);
             await updateTransactionOfDB(data?.transactionHash, hash);
           }

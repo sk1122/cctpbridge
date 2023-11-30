@@ -21,7 +21,7 @@ export default function Navbar() {
           className="bg-transparent px-10 py-3 border-2 border-[#FF7D1F] rounded-full font-bold"
           onClick={() => router.push("/bridge")}
         >
-          Interact
+          Launch app
         </button>
       ) : (
         <div>
