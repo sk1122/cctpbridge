@@ -1,5 +1,5 @@
 import { ABI } from "@/constants/abi";
-import { useContractWrite } from "wagmi";
+import { useContractWrite, usePublicClient } from "wagmi";
 
 export default function useRelease() {
   const { writeAsync } = useContractWrite({

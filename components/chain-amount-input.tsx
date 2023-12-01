@@ -45,7 +45,6 @@ export const ChainAmountInput = () => {
         <button
           className="bg-[#FF7D1F] px-3 py-1 rounded-lg text-sm font-semibold"
           onClick={() => {
-            if (balance === "0") return;
             if (balance) {
               setSellAmount(balance);
             }

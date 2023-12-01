@@ -6,7 +6,7 @@ import { createPublicClient, formatUnits, http } from "viem";
 import { useAccount } from "wagmi";
 
 export default function useBal() {
-  const [balance, setBalance] = useState<string | null>(null);
+  const { setBalance, balance } = useTokenStore();
   const { sellToken } = useTokenStore();
   const { address } = useAccount();
 

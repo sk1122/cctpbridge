@@ -3,7 +3,7 @@ import { MessageTransmitterABI } from "@/constants/abi/MessageTransmitter";
 import { BRIDGECONTRACTS } from "@/constants/address";
 import { chains } from "@/lib/data";
 import { useTokenStore } from "@/store";
-import { decodeEventLog, parseUnits } from "viem";
+import { decodeEventLog, isAddress, parseUnits } from "viem";
 import {
   useAccount,
   useChainId,
@@ -12,7 +12,13 @@ import {
 } from "wagmi";
 
 export default function useBridge() {
-  const { sellAmount, buyToken, sellToken } = useTokenStore();
+  const {
+    sellAmount,
+    buyToken,
+    sellToken,
+    isReceiverAddress,
+    receiverAddress,
+  } = useTokenStore();
   const { address } = useAccount();
   const chainId = useChainId();
   const { waitForTransactionReceipt } = usePublicClient({
@@ -31,8 +37,13 @@ export default function useBridge() {
 
       console.log(destinationDomain);
 
+      const finalAddress =
+        isReceiverAddress && isAddress(receiverAddress.trim())
+          ? receiverAddress
+          : address!;
+
       const { hash } = await writeAsync({
-        args: [amount, destinationDomain, address!],
+        args: [amount, destinationDomain, finalAddress as `0x${string}`],
       });
 
       const { logs, transactionHash } = await waitForTransactionReceipt({

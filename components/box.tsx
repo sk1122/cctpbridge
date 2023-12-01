@@ -1,24 +1,26 @@
+import { USDCCONTRACTS } from "@/constants/address";
 import useApprove from "@/hooks/useApprove";
 import useBridge from "@/hooks/useBridge";
+import useCanBridge from "@/hooks/useCanBridge";
 import useSwitchChain from "@/hooks/useSwitchChain";
 import { chains } from "@/lib/data";
 import { useTokenStore } from "@/store";
 import addTransaction from "@/utils/addTransaction";
+import formatAddress from "@/utils/formatAddress";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ExternalLink } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import ArrivalTimeBox from "./ArrivalTimeBox";
 import FeesBox from "./FeesBox";
 import ReceiverAddress from "./ReceiverAddress";
 import SelectChainBox from "./SelectChainBox";
 import SwtichChainButton from "./SwtichChainButton";
+import TransactionsIcon from "./UI/Icons/TransactionsIcon";
 import Spinner from "./UI/Spinner";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
-import formatAddress from "@/utils/formatAddress";
-import TransactionsIcon from "./UI/Icons/TransactionsIcon";
 
 type TransactionDetails = {
   success: boolean;
@@ -35,8 +37,17 @@ export const Box = () => {
   const { isConnected, address } = useAccount();
   const { approveAllowance } = useApprove();
   const { bridgeToken } = useBridge();
-  const { sellToken, buyToken, sellAmount, buyAmount } = useTokenStore();
+  const {
+    sellToken,
+    buyToken,
+    sellAmount,
+    receiverAddress,
+    isReceiverAddress,
+    balance,
+  } = useTokenStore();
   const { switchChain } = useSwitchChain();
+  const { validate } = useCanBridge();
+  const [canBridge, setCanBridge] = useState<boolean>(false);
 
   async function addTransactionToDB(
     srcMessage: `0x${string}`,
@@ -44,8 +55,8 @@ export const Box = () => {
   ) {
     const srcChain = chains[sellToken].chainId;
     const dstChain = chains[buyToken].chainId;
-    const srcToken = chains[sellToken].tokens[0].address;
-    const dstToken = chains[buyToken].tokens[0].address;
+    const srcToken = USDCCONTRACTS[sellToken].mainnetContract;
+    const dstToken = USDCCONTRACTS[buyToken].mainnetContract;
     const slippage = 1;
 
     await addTransaction(
@@ -58,7 +69,7 @@ export const Box = () => {
       srcMessage,
       dstChain,
       dstToken,
-      buyAmount,
+      sellAmount,
       slippage
     );
   }
@@ -100,6 +111,11 @@ export const Box = () => {
     }
   }
 
+  useEffect(() => {
+    const isvalid = validate();
+    setCanBridge(isvalid);
+  }, [isConnected, receiverAddress, balance, sellAmount, isReceiverAddress]);
+
   return (
     <div className="shadow-2xl border border-[#FF7D1F] shadow-[#FF7D1F] w-full sm:w-[462px] bg-[#070708] rounded-xl h-full flex flex-col px-3 pb-3 justify-center items-center space-y-3">
       <BoxHeader />
@@ -114,7 +130,7 @@ export const Box = () => {
         <ArrivalTimeBox />
         <FeesBox />
       </div>
-      {!isConnected || sellAmount.length === 0 || sellAmount === "0" ? (
+      {!canBridge ? (
         <Button active={false} text={"Bridge"} />
       ) : (
         <Dialog.Root>
