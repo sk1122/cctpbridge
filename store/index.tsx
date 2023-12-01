@@ -5,16 +5,14 @@ interface ITokenStore {
   sellTokenBal: string;
   sellAmount: string;
   buyToken: number;
-  buyTokenBal: string;
   buyAmount: string;
-  srcTx: undefined | string;
+  receiverAddress: string;
   setSellToken: (tokenIndex: number) => void;
   setSellAmount: (amount: string) => void;
   setSellTokenBal: (bal: string) => void;
   setBuyToken: (tokenIndex: number) => void;
   setBuyAmount: (amount: string) => void;
-  setBuyTokenBal: (bal: string) => void;
-  setSrcTx: (srcTx: string | undefined) => void;
+  setReceiverAddress: (address: string) => void;
 }
 
 const useTokenStore = create<ITokenStore>((set) => ({
@@ -22,9 +20,8 @@ const useTokenStore = create<ITokenStore>((set) => ({
   sellTokenBal: "0",
   sellAmount: "",
   buyToken: 2,
-  buyTokenBal: "0",
   buyAmount: "",
-  srcTx: undefined,
+  receiverAddress: "",
   setSellToken: (tokenIndex) =>
     set({
       sellToken: tokenIndex,
@@ -41,17 +38,13 @@ const useTokenStore = create<ITokenStore>((set) => ({
     set({
       buyToken: tokenIndex,
     }),
-  setBuyTokenBal: (bal) =>
-    set({
-      buyTokenBal: bal,
-    }),
   setBuyAmount: (amount) =>
     set({
       buyAmount: amount,
     }),
-  setSrcTx: (srcTx) =>
+  setReceiverAddress: (address) =>
     set({
-      srcTx: srcTx,
+      receiverAddress: address,
     }),
 }));
 

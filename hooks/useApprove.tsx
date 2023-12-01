@@ -1,14 +1,15 @@
 import { USDCABI } from "@/constants/abi/USDC";
+import { USDCCONTRACTS } from "@/constants/address";
 import { useTokenStore } from "@/store";
 import { parseUnits } from "viem";
 import { useChainId, useContractWrite, usePublicClient } from "wagmi";
 
 export default function useApprove() {
-  const { sellAmount } = useTokenStore();
+  const { sellAmount, sellToken } = useTokenStore();
   const { writeAsync } = useContractWrite({
     abi: USDCABI,
     functionName: "approve",
-    address: "0x07865c6e87b9f70255377e024ace6630c1eaa37f",
+    address: USDCCONTRACTS[sellToken].testnetContract,
   });
   const chainID = useChainId();
   const { waitForTransactionReceipt } = usePublicClient({

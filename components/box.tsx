@@ -114,7 +114,7 @@ export const Box = () => {
         <ArrivalTimeBox />
         <FeesBox />
       </div>
-      {!isConnected || sellAmount.length === 0 ? (
+      {!isConnected || sellAmount.length === 0 || sellAmount === "0" ? (
         <Button active={false} text={"Bridge"} />
       ) : (
         <Dialog.Root>
@@ -157,6 +157,9 @@ export const Box = () => {
                         active={true}
                         text="Take me back"
                         className="bg-white w-full py-2 text-black rounded-lg"
+                        onClick={() => {
+                          setStep(0);
+                        }}
                       />
                     </Dialog.Close>
                   </div>

@@ -1,65 +1,38 @@
 import { USDCABI } from "@/constants/abi/USDC";
-import React from "react";
-import {
-  createPublicClient,
-  formatEther,
-  formatUnits,
-  http,
-  parseEther,
-} from "viem";
+import { RPC, USDCCONTRACTS } from "@/constants/address";
+import { useTokenStore } from "@/store";
+import { useEffect, useState } from "react";
+import { createPublicClient, formatUnits, http } from "viem";
 import { useAccount } from "wagmi";
 
 export default function useBal() {
+  const [balance, setBalance] = useState<string | null>(null);
+  const { sellToken } = useTokenStore();
   const { address } = useAccount();
-  const RPC = [
-    {
-      id: 0,
-      network: "ethereum",
-      testnet: "https://rpc.ankr.com/eth_goerli",
-      mainnet: "",
-    },
-    {
-      id: 1,
-      network: "polygon",
-      testnet: "https://rpc.ankr.com/polygon_mumbai",
-      mainnet: "https://rpc.ankr.com/polygon",
-    },
-    {
-      id: 2,
-      network: "avalanche",
-      testnet: "https://rpc.ankr.com/avalanche_fuji",
-      mainnet: "https://rpc.ankr.com/avalanche",
-    },
-    {
-      id: 3,
-      network: "arbitrum",
-      testnet: "",
-      mainnet:
-        "https://arb-mainnet.g.alchemy.com/v2/y141okG6TC3PecBM1mL0BfST9f4WQmLx",
-    },
-    {
-      id: 4,
-      network: "optimism",
-      testnet: "https://rpc.ankr.com/optimism_testnet",
-      mainnet: "https://rpc.ankr.com/optimism",
-    },
-  ];
 
-  async function getBalance(chain: number) {
-    if (!address) return;
-    const rpc = createPublicClient({
-      transport: http(RPC[chain].testnet),
-    });
+  async function getBalance() {
+    try {
+      if (!address) return;
+      const rpc = createPublicClient({
+        transport: http(RPC[sellToken].testnetRPC),
+      });
 
-    const ba = await rpc.readContract({
-      abi: USDCABI,
-      address: "0x07865c6e87b9f70255377e024ace6630c1eaa37f",
-      functionName: "balanceOf",
-      args: [address],
-    });
+      const balance = await rpc.readContract({
+        abi: USDCABI,
+        address: USDCCONTRACTS[sellToken].testnetContract,
+        functionName: "balanceOf",
+        args: [address],
+      });
 
-    console.log(formatUnits(ba, 6));
+      setBalance(formatUnits(balance, 6));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  return { getBalance };
+  useEffect(() => {
+    getBalance();
+  }, [sellToken]);
+
+  return { balance };
 }

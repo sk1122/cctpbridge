@@ -13,9 +13,14 @@ export default function Feedback() {
         </h1>
       </div>
       <div className="mt-6">
-        <Input className={"border border-white"} placeholder="Your Name" />
         <Input
-          className={"border border-white mt-4"}
+          className={"border border-white border-opacity-25 bg-transparent"}
+          placeholder="Your Name"
+        />
+        <Input
+          className={
+            "border border-white border-opacity-25 mt-4 bg-transparent"
+          }
           placeholder="Phone Number"
         />
       </div>

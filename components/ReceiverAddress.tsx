@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import * as Switch from "@radix-ui/react-switch";
 import { Input } from "./input";
+import { useTokenStore } from "@/store";
 
 export default function ReceiverAddress() {
+  const { setReceiverAddress, receiverAddress } = useTokenStore();
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   return (
     <div>
@@ -23,6 +25,10 @@ export default function ReceiverAddress() {
         <Input
           className="bg-[#17181C] border border-[#464646] rounded-xl text-[#FF7D1F] mt-2"
           placeholder="Receiver’s address"
+          value={receiverAddress}
+          onChange={(e) => {
+            setReceiverAddress(e.target.value);
+          }}
         />
       ) : null}
     </div>

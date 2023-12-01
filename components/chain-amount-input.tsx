@@ -5,12 +5,8 @@ import useBal from "@/hooks/useBal";
 
 export const ChainAmountInput = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const { setSellAmount, sellAmount, sellToken } = useTokenStore();
-  const { getBalance } = useBal();
-
-  useEffect(() => {
-    getBalance(sellToken);
-  }, [sellToken]);
+  const { setSellAmount, sellAmount } = useTokenStore();
+  const { balance } = useBal();
 
   return (
     <div
@@ -20,7 +16,11 @@ export const ChainAmountInput = () => {
     >
       <div className="w-full h-full flex justify-between items-center">
         <p className="font-medium text-[#7A7A7A]">Enter Amount</p>
-        <p className="font-medium text-[#7A7A7A]">Available Bal: $321</p>
+        {balance && (
+          <p className="font-medium text-[#7A7A7A]">
+            Available Bal: ${balance}
+          </p>
+        )}
       </div>
       <div className="w-full h-full flex justify-between items-center mt-2">
         <div className="flex items-center">
@@ -42,7 +42,15 @@ export const ChainAmountInput = () => {
             }}
           />
         </div>
-        <button className="bg-[#FF7D1F] px-3 py-1 rounded-lg text-sm font-semibold">
+        <button
+          className="bg-[#FF7D1F] px-3 py-1 rounded-lg text-sm font-semibold"
+          onClick={() => {
+            if (balance === "0") return;
+            if (balance) {
+              setSellAmount(balance);
+            }
+          }}
+        >
           Max
         </button>
       </div>
