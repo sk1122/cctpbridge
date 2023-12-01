@@ -1,9 +1,7 @@
 import { ABI } from "@/constants/abi";
-import { useTokenStore } from "@/store";
-import { useContractWrite, useWalletClient } from "wagmi";
+import { useContractWrite } from "wagmi";
 
 export default function useRelease() {
-  const { buyToken } = useTokenStore();
   const { writeAsync } = useContractWrite({
     abi: ABI,
     functionName: "release",

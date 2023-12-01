@@ -18,6 +18,7 @@ import ArrivalTimeBox from "./ArrivalTimeBox";
 import FeesBox from "./FeesBox";
 import SelectChainBox from "./SelectChainBox";
 import { ArrowRightLeft } from "lucide-react";
+import ReceiverAddress from "./ReceiverAddress";
 
 export const Box = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -127,6 +128,7 @@ export const Box = () => {
           <SelectChainBox title="To" isFrom={false} />
         </div>
         <ChainAmountInput />
+        <ReceiverAddress />
         <ArrivalTimeBox />
         <FeesBox />
       </div>

@@ -25,9 +25,8 @@ export default function useBridge() {
 
   const bridgeToken = async () => {
     try {
-      const amount = parseUnits(sellAmount.toString(), 6);
-      const destinationDomain =
-        chains[parseInt(buyToken!) - 1].destinationDomain;
+      const amount = parseUnits(sellAmount, 6);
+      const destinationDomain = chains[buyToken].destinationDomain;
 
       console.log(destinationDomain);
 
