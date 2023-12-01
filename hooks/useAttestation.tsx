@@ -6,8 +6,7 @@ export default function useAttestation() {
   const { sellToken } = useTokenStore();
 
   async function waitForConfirmation() {
-    if (!sellToken) return;
-    if (sellToken === "1") {
+    if (sellToken === 0) {
       await sleep(72000);
     } else {
       await sleep(40000);
@@ -23,7 +22,9 @@ export default function useAttestation() {
       } else {
         await attestationStatus(messagehash);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
 
     // if (response.status === "complete") {
     //   console.log("Status = complete");
