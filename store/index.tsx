@@ -7,12 +7,14 @@ interface ITokenStore {
   receiverAddress: string;
   isReceiverAddress: boolean;
   balance: null | string;
+  claimChainId: number;
   setSellToken: (tokenIndex: number) => void;
   setSellAmount: (amount: string) => void;
   setBuyToken: (tokenIndex: number) => void;
   setReceiverAddress: (address: string) => void;
   setIsReceiverAddress: (isReceiverAddress: boolean) => void;
   setBalance: (balance: string) => void;
+  setClaimChainId: (chainId: number) => void;
 }
 
 const useTokenStore = create<ITokenStore>((set) => ({
@@ -22,6 +24,7 @@ const useTokenStore = create<ITokenStore>((set) => ({
   receiverAddress: "",
   isReceiverAddress: false,
   balance: null,
+  claimChainId: 0,
   setSellToken: (tokenIndex) =>
     set({
       sellToken: tokenIndex,
@@ -45,6 +48,10 @@ const useTokenStore = create<ITokenStore>((set) => ({
   setBalance: (balance) =>
     set({
       balance: balance,
+    }),
+  setClaimChainId: (chainId) =>
+    set({
+      claimChainId: chainId,
     }),
 }));
 

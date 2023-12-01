@@ -13,6 +13,7 @@ import useSwitchChain from "@/hooks/useSwitchChain";
 import { useChainId } from "wagmi";
 import getAttestation from "@/utils/getAttestation";
 import updateTransaction from "@/utils/updateTransaction";
+import { useTokenStore } from "@/store";
 
 export default function Timer({ tx }: { tx: ITransactions }) {
   const { handleTimer, seconds } = useTimer();
@@ -22,6 +23,7 @@ export default function Timer({ tx }: { tx: ITransactions }) {
   const { attestationStatus } = useAttestation();
   const { switchChain } = useSwitchChain();
   const chainID = useChainId();
+  const { setClaimChainId } = useTokenStore();
 
   useEffect(() => {
     handleTimer(tx.srcChain, tx.createdAt);
@@ -46,7 +48,9 @@ export default function Timer({ tx }: { tx: ITransactions }) {
         if (chain?.testnetChainId && chainID !== chain?.testnetChainId) {
           await switchChain(chain?.testnetChainId);
         }
+        if (!chain) return;
         console.log("here");
+        setClaimChainId(chain.id);
         const response = await getAttestation(messagehash);
         const hash = await releaseFunds(srcMessage, response.attestation);
         if (!hash) return;

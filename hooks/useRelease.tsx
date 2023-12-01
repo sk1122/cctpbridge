@@ -1,11 +1,14 @@
 import { ABI } from "@/constants/abi";
+import { BRIDGECONTRACTS } from "@/constants/address";
+import { useTokenStore } from "@/store";
 import { useContractWrite, usePublicClient } from "wagmi";
 
 export default function useRelease() {
+  const { claimChainId } = useTokenStore();
   const { writeAsync } = useContractWrite({
     abi: ABI,
     functionName: "release",
-    address: "0xe3edd42194D9B12781F1ed5f687328Ac764bEf02",
+    address: BRIDGECONTRACTS[claimChainId].testnetContract,
   });
 
   async function releaseFunds(
