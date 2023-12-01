@@ -1,5 +1,5 @@
 import { USDCABI } from "@/constants/abi/USDC";
-import { USDCCONTRACTS } from "@/constants/address";
+import { BRIDGECONTRACTS, USDCCONTRACTS } from "@/constants/address";
 import { useTokenStore } from "@/store";
 import { parseUnits } from "viem";
 import { useChainId, useContractWrite, usePublicClient } from "wagmi";
@@ -21,7 +21,7 @@ export default function useApprove() {
       if (sellAmount.trim().length === 0) return;
       const amount = parseUnits(sellAmount, 6);
       const { hash } = await writeAsync({
-        args: [USDCCONTRACTS[sellToken].testnetContract, amount],
+        args: [BRIDGECONTRACTS[sellToken].testnetContract, amount],
       });
       await waitForTransactionReceipt({
         hash: hash,
