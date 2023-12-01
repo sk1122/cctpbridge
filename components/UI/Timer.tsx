@@ -43,16 +43,19 @@ export default function Timer({ tx }: { tx: ITransactions }) {
       console.log(srcTx, dstChain, srcMessage);
 
       if (isConfirmed) {
-        console.log("herewww");
         const chain = chains.find((chain) => chain.chainId == dstChain);
         if (chain?.testnetChainId && chainID !== chain?.testnetChainId) {
           await switchChain(chain?.testnetChainId);
         }
         if (!chain) return;
-        console.log("here");
-        setClaimChainId(chain.id);
+        console.log("here", chain);
+        setClaimChainId(chain.id - 1);
         const response = await getAttestation(messagehash);
-        const hash = await releaseFunds(srcMessage, response.attestation);
+        const hash = await releaseFunds(
+          srcMessage,
+          response.attestation,
+          chain.id - 1
+        );
         if (!hash) return;
         console.log(hash);
         setDstTx(hash);
@@ -84,7 +87,7 @@ export default function Timer({ tx }: { tx: ITransactions }) {
           ) : (
             <Button
               className="inline-flex items-center gap-x-2 text-sm px-4 py-1 font-semibold rounded-full bg-[#FF7D1F] text-white"
-              text="claim"
+              text="Claim"
               isLoading={isLoading}
               active={true}
               onClick={() => {

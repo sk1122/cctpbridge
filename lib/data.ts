@@ -64,7 +64,7 @@ export const evmChainData: Chain[] = [
         decimals: 18,
       },
     ],
-    isSupported: true
+    isSupported: true,
   },
   {
     id: 2,
@@ -109,7 +109,7 @@ export const evmChainData: Chain[] = [
         decimals: 18,
       },
     ],
-    isSupported: false
+    isSupported: false,
   },
   {
     id: 3,
@@ -154,7 +154,7 @@ export const evmChainData: Chain[] = [
         decimals: 18,
       },
     ],
-    isSupported: true
+    isSupported: true,
   },
   {
     id: 4,
@@ -199,7 +199,7 @@ export const evmChainData: Chain[] = [
         decimals: 18,
       },
     ],
-    isSupported: true
+    isSupported: true,
   },
   {
     id: 5,
@@ -244,7 +244,7 @@ export const evmChainData: Chain[] = [
         decimals: 18,
       },
     ],
-    isSupported: true
+    isSupported: true,
   },
 ];
 
@@ -284,7 +284,7 @@ export const solanaChainData: Chain[] = [
         decimals: 10,
       },
     ],
-    isSupported: false
+    isSupported: false,
   },
 ];
 
@@ -326,7 +326,7 @@ export const aptosChainData: Chain[] = [
         decimals: 10,
       },
     ],
-    isSupported: false
+    isSupported: false,
   },
 ];
 
@@ -341,4 +341,4 @@ export const explorerLinks: any = {
   8: "https://explorer.aptoslabs.com/txn/",
 };
 
-export const chains = [...evmChainData, ...solanaChainData, ...aptosChainData]
+export const chains = [...evmChainData, ...solanaChainData, ...aptosChainData];
