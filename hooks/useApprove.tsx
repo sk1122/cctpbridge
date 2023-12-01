@@ -21,7 +21,7 @@ export default function useApprove() {
       if (sellAmount.trim().length === 0) return;
       const amount = parseUnits(sellAmount, 6);
       const { hash } = await writeAsync({
-        args: ["0x0e6039cd2FcE0890059ED31D5d188e0a23c241A1", amount],
+        args: [USDCCONTRACTS[sellToken].testnetContract, amount],
       });
       await waitForTransactionReceipt({
         hash: hash,
