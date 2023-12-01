@@ -42,7 +42,7 @@ export const useGasUsed = () => {
       name: "Avalanche",
       symbol: "AVAX",
       coinGeckoId: "avalanche-2",
-      url: "https://rpc.ankr.com/avalanche_fuji",
+      url: "https://rpc.ankr.com/avalanche",
       website: "https://www.avax.network/",
       image: "/networks/avalanche_logo.png",
       type: "Sidechain",
@@ -89,14 +89,14 @@ export const useGasUsed = () => {
     });
 
     const gas = await rpc.getGasPrice();
-
-    return gas;
+    return chain === 0 ? Number(gas) : Number(gas) / 1000_000_000;
   };
 
   const invoke = async (chain: number): Promise<number> => {
     const fiat = Number(await fetchFiatRates(chain));
     const gas = Number(await fetchGasPrices(chain));
 
+    console.log(fiat, gas, gasUsed, "FIAT")
     const usdPrice = (fiat * gas * gasUsed) / 1000_000_000;
 
     return usdPrice;
