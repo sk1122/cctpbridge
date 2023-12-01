@@ -3,6 +3,7 @@ import { useTokenStore } from "@/store";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronDown, Search, X } from "lucide-react";
 import { Input } from "./input";
+import { useState } from "react";
 
 export default function SelectChainBox({
   title,
@@ -11,7 +12,20 @@ export default function SelectChainBox({
   title: string;
   isFrom: boolean;
 }) {
+  const [searchItem, setSearchItem] = useState("");
+  const [filteredChains, setFilteredChains] = useState(chains);
   const { setSellToken, sellToken, setBuyToken, buyToken } = useTokenStore();
+
+  const handleInputChange = (e: { target: { value: string } }) => {
+    const searchTerm = e.target.value;
+    setSearchItem(searchTerm);
+
+    const filteredItems = chains.filter((chain) =>
+      chain.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    setFilteredChains(filteredItems);
+  };
 
   return (
     <div className="bg-[#17181C] text-[#7A7A7A] rounded-xl px-4 py-2 border border-[#464646] w-full">
@@ -44,10 +58,12 @@ export default function SelectChainBox({
                 <Input
                   className={"text-lg bg-transparent text-white"}
                   placeholder="Search"
+                  value={searchItem}
+                  onChange={handleInputChange}
                 />
               </div>
               <div className="mt-4">
-                {chains.map((chain, index) => {
+                {filteredChains.map((chain, index) => {
                   if (chain.isSupported) {
                     return (
                       <Dialog.Close
