@@ -3,6 +3,7 @@ import { ArrowLeftRight, Cog, X } from "lucide-react";
 import Transactions from "./transactions";
 import Slippage from "./slippage";
 import { useAccount } from "wagmi";
+import TransactionsIcon from "./UI/Icons/TransactionsIcon";
 
 export const BoxHeader = () => {
   const { isConnected } = useAccount();
@@ -41,14 +42,14 @@ export const BoxHeader = () => {
         <Dialog.Root>
           <Dialog.Trigger asChild>
             {isConnected && (
-              <button>
-                <ArrowLeftRight />
+              <button className="w-6 h-6">
+                <TransactionsIcon />
               </button>
             )}
           </Dialog.Trigger>
           <Dialog.Portal>
-            <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm" />
-            <Dialog.Content className="fixed top-[50%] left-[50%] -translate-y-2/4 -translate-x-2/4 max-w-3xl max-h-[85vh] bg-[#070708] rounded-lg border border-[#FF7D1F]">
+            <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-20" />
+            <Dialog.Content className="fixed top-[50%] left-[50%] -translate-y-2/4 -translate-x-2/4 max-w-3xl max-h-[85vh] bg-[#070708] rounded-lg border border-[#FF7D1F] z-20">
               <div className="flex justify-between items-center p-4">
                 <Dialog.Title className="text-white text-xl font-semibold">
                   Your Transactions

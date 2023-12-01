@@ -27,7 +27,11 @@ export const Button: FC<ButtonProps> = ({
       }
       {...props}
     >
-      {isLoading ? <Spinner /> : null}
+      {isLoading ? (
+        <div className="w-5 h-5 text-white">
+          <Spinner />
+        </div>
+      ) : null}
       {text}
     </button>
   );

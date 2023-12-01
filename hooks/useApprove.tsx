@@ -1,11 +1,7 @@
 import { USDCABI } from "@/constants/abi/USDC";
 import { useTokenStore } from "@/store";
 import { parseUnits } from "viem";
-import {
-  useChainId,
-  useContractWrite,
-  usePublicClient
-} from "wagmi";
+import { useChainId, useContractWrite, usePublicClient } from "wagmi";
 
 export default function useApprove() {
   const { sellAmount } = useTokenStore();
@@ -27,7 +23,7 @@ export default function useApprove() {
         args: ["0x0e6039cd2FcE0890059ED31D5d188e0a23c241A1", amount],
       });
       await waitForTransactionReceipt({
-        hash : hash,
+        hash: hash,
       });
       return hash;
     } catch (error) {

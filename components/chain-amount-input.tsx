@@ -1,10 +1,16 @@
 import { useTokenStore } from "@/store";
 import { Input } from "./input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useBal from "@/hooks/useBal";
 
 export const ChainAmountInput = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const { setSellAmount, sellAmount } = useTokenStore();
+  const { setSellAmount, sellAmount, sellToken } = useTokenStore();
+  const { getBalance } = useBal();
+
+  useEffect(() => {
+    getBalance(sellToken);
+  }, [sellToken]);
 
   return (
     <div
