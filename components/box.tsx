@@ -1,12 +1,11 @@
 import useApprove from "@/hooks/useApprove";
-import useAttestation from "@/hooks/useAttestation";
 import useBridge from "@/hooks/useBridge";
-import useRelease from "@/hooks/useRelease";
 import useSwitchChain from "@/hooks/useSwitchChain";
 import { chains } from "@/lib/data";
 import { useTokenStore } from "@/store";
 import addTransaction from "@/utils/addTransaction";
-import updateTransaction from "@/utils/updateTransaction";
+import * as Dialog from "@radix-ui/react-dialog";
+import { ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { useAccount } from "wagmi";
 import ArrivalTimeBox from "./ArrivalTimeBox";
@@ -14,12 +13,11 @@ import FeesBox from "./FeesBox";
 import ReceiverAddress from "./ReceiverAddress";
 import SelectChainBox from "./SelectChainBox";
 import SwtichChainButton from "./SwtichChainButton";
+import Spinner from "./UI/Spinner";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
-import * as Dialog from "@radix-ui/react-dialog";
-import Spinner from "./UI/Spinner";
-import { ExternalLink } from "lucide-react";
+import formatAddress from "@/utils/formatAddress";
 
 type TransactionDetails = {
   success: boolean;
@@ -136,7 +134,11 @@ export const Box = () => {
                     {transactionDetails?.success ? (
                       <>
                         <div className="flex gap-2 items-center justify-center">
-                          <p className="text-white text-sm">0x02..33</p>
+                          <p className="text-white text-sm">
+                            {formatAddress(
+                              transactionDetails?.transactionHash!
+                            )}
+                          </p>
                           <ExternalLink className="w-4 h-4 text-[#828282]" />
                         </div>
                         <div className="flex gap-2 items-center justify-center">

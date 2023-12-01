@@ -4,7 +4,7 @@ export const useGasUsed = () => {
   const gasUsed = 3000_00;
   const networks = [
     {
-      id: 1,
+      id: 0,
       network: "ethereum",
       symbol: "ETH",
       name: "Ethereum",
@@ -15,7 +15,7 @@ export const useGasUsed = () => {
       type: "Layer 1",
     },
     {
-      id: 5,
+      id: 3,
       network: "arbitrum",
       symbol: "ETH",
       name: "Arbitrum One",
@@ -26,7 +26,7 @@ export const useGasUsed = () => {
       type: "Layer 2",
     },
     {
-      id: 6,
+      id: 4,
       network: "optimism",
       symbol: "ETH",
       name: "Optimism",
@@ -37,7 +37,7 @@ export const useGasUsed = () => {
       type: "Layer 2",
     },
     {
-      id: 4,
+      id: 2,
       network: "avalanche",
       name: "Avalanche",
       symbol: "AVAX",
@@ -48,7 +48,7 @@ export const useGasUsed = () => {
       type: "Sidechain",
     },
     {
-      id: 2,
+      id: 1,
       network: "polygon",
       name: "Polygon",
       symbol: "MATIC",
@@ -61,6 +61,7 @@ export const useGasUsed = () => {
   ];
 
   const fetchFiatRates = async (chain: number) => {
+    console.log(chain, "heee");
     const ids = networks.find((network) => network.id === chain)!.coinGeckoId;
     const vsCurrencies = "USD";
 
@@ -84,24 +85,24 @@ export const useGasUsed = () => {
   const fetchGasPrices = async (chain: number) => {
     const url = networks.find((network) => network.id === chain)!.url;
     const rpc = createPublicClient({
-        transport: http(url)
-    })
-    
-    const gas = await rpc.getGasPrice()
+      transport: http(url),
+    });
 
-    return gas
+    const gas = await rpc.getGasPrice();
+
+    return gas;
   };
 
   const invoke = async (chain: number): Promise<number> => {
-    const fiat = Number(await fetchFiatRates(chain))
-    const gas = Number(await fetchGasPrices(chain))
+    const fiat = Number(await fetchFiatRates(chain));
+    const gas = Number(await fetchGasPrices(chain));
 
-    const usdPrice = (fiat * gas * gasUsed) / 1000_000_000
+    const usdPrice = (fiat * gas * gasUsed) / 1000_000_000;
 
-    return usdPrice
-  }
+    return usdPrice;
+  };
 
   return {
-    invoke
-  }
+    invoke,
+  };
 };
