@@ -87,10 +87,9 @@ export const USDCCONTRACTS: Contracts[] = [
 export const BRIDGECONTRACTS: Contracts[] = [
   {
     id: 0,
-
     network: "ethereum",
     testnetContract: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
-    mainnetContract: "0x",
+    mainnetContract: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
   },
   {
     id: 1,
