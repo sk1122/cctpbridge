@@ -2,12 +2,14 @@ import useBal from "@/hooks/useBal";
 import { useTokenStore } from "@/store";
 import { useEffect, useState } from "react";
 import { Input } from "./input";
+import { useAccount } from "wagmi";
 
 export const ChainAmountInput = () => {
   const [isFocused, setIsFocused] = useState(false);
   const { setSellAmount, sellAmount, setBalance, balance, sellToken } =
     useTokenStore();
   const { getBalance } = useBal();
+  const { isConnected } = useAccount();
 
   async function handleBalance() {
     const currentBal = await getBalance();
@@ -18,7 +20,7 @@ export const ChainAmountInput = () => {
 
   useEffect(() => {
     handleBalance();
-  }, [sellToken]);
+  }, [sellToken, isConnected]);
 
   return (
     <div
