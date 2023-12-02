@@ -6,7 +6,6 @@ import { createPublicClient, formatUnits, http } from "viem";
 import { useAccount } from "wagmi";
 
 export default function useBal() {
-  const { setBalance, balance } = useTokenStore();
   const { sellToken } = useTokenStore();
   const { address } = useAccount();
 
@@ -24,15 +23,11 @@ export default function useBal() {
         args: [address],
       });
 
-      setBalance(formatUnits(balance, 6));
+      return formatUnits(balance, 6);
     } catch (error) {
       console.log(error);
     }
   }
 
-  useEffect(() => {
-    getBalance();
-  }, [sellToken]);
-
-  return { balance };
+  return { getBalance };
 }

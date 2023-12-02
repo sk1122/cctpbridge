@@ -5,8 +5,20 @@ import useBal from "@/hooks/useBal";
 
 export const ChainAmountInput = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const { setSellAmount, sellAmount } = useTokenStore();
-  const { balance } = useBal();
+  const { setSellAmount, sellAmount, setBalance, balance, sellToken } =
+    useTokenStore();
+  const { getBalance } = useBal();
+
+  async function handleBalance() {
+    const currentBal = await getBalance();
+    if (currentBal) {
+      setBalance(currentBal);
+    }
+  }
+
+  useEffect(() => {
+    handleBalance();
+  }, [sellToken]);
 
   return (
     <div
