@@ -7,6 +7,7 @@ import { chains } from "@/lib/data";
 import { useTokenStore } from "@/store";
 import addTransaction from "@/utils/addTransaction";
 import formatAddress from "@/utils/formatAddress";
+import { Player } from "@lottiefiles/react-lottie-player";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ExternalLink } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -80,7 +81,13 @@ export const Box = () => {
     try {
       const chainID = await switchChain(chains[sellToken].testnetChainId);
 
-      if (!chainID) return;
+      if (!chainID) {
+        setTransactionDetails({
+          success: false,
+          transactionHash: null,
+        });
+        setStep(2);
+      }
       const hash = await approveAllowance();
       if (hash) {
         setStep(1);
@@ -151,6 +158,14 @@ export const Box = () => {
                     {transactionDetails?.success ? (
                       <>
                         <div className="flex gap-2 items-center justify-center">
+                          <Player
+                            src={
+                              "https://lottie.host/70fe85c3-eff9-480d-a4fb-bea1bd9e5423/vhXw9v6j07.json"
+                            }
+                            autoplay
+                            speed={1}
+                            className="w-28 h-28"
+                          />
                           <p className="text-white text-sm">
                             {formatAddress(
                               transactionDetails?.transactionHash!
@@ -167,7 +182,15 @@ export const Box = () => {
                           </div>
                         </div>
                       </>
-                    ) : null}
+                    ) : (
+                      <Player
+                        src="https://lottie.host/8964c02e-4ac2-457c-b527-7e973199d9b6/1XdEr5bYFW.json"
+                        autoplay={true}
+                        speed={1}
+                        keepLastFrame
+                        className="w-28 h-28"
+                      />
+                    )}
                     <Dialog.Close>
                       <Button
                         active={true}
