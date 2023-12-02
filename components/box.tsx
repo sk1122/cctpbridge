@@ -22,6 +22,7 @@ import Spinner from "./UI/Spinner";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
+import getTimeDifference from "@/utils/getTimeDifference";
 
 type TransactionDetails = {
   success: boolean;
@@ -117,6 +118,9 @@ export const Box = () => {
       console.log(error);
     }
   }
+
+  const diff = getTimeDifference("");
+  console.log(diff);
 
   useEffect(() => {
     const isvalid = validate();

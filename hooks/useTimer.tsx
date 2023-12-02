@@ -1,4 +1,5 @@
 import { chains } from "@/lib/data";
+import formatTime from "@/utils/formatTime";
 import getTimeDifference from "@/utils/getTimeDifference";
 import { useState } from "react";
 
@@ -36,14 +37,14 @@ const confirmationTimes = [
 ];
 
 export default function useTimer() {
-  const [seconds, setSeconds] = useState<number | null>(null);
+  const [seconds, setSeconds] = useState<string | null>(null);
 
   function timer(sec: number) {
-    if (sec === 0) {
+    if (sec <= 0) {
       setSeconds(null);
       return;
     }
-    setSeconds(sec);
+    setSeconds(formatTime(sec));
 
     return setTimeout(() => {
       timer(--sec);
@@ -56,10 +57,7 @@ export default function useTimer() {
 
     const diff = getTimeDifference(transactionTime);
 
-    if (diff < 0) {
-      setSeconds(null);
-      return;
-    }
+    if (diff <= 0) return;
 
     if (confirmationTimes[chain?.id - 1].testnet > diff) {
       const seconds = confirmationTimes[chain?.id - 1].testnet - diff;

@@ -72,7 +72,7 @@ export default function Timer({ tx }: { tx: ITransactions }) {
     <>
       {seconds ? (
         <div className="inline-flex items-center gap-x-2 px-4 py-1 rounded-full bg-[#FF7D1F] text-white">
-          <p className="text-sm font-semibold">{seconds}s</p>
+          <p className="text-sm font-semibold">{seconds}</p>
           <div className="w-5 h-5">
             <Spinner />
           </div>
