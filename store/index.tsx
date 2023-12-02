@@ -13,7 +13,7 @@ interface ITokenStore {
   setBuyToken: (tokenIndex: number) => void;
   setReceiverAddress: (address: string) => void;
   setIsReceiverAddress: (isReceiverAddress: boolean) => void;
-  setBalance: (balance: string) => void;
+  setBalance: (balance: string | null) => void;
   setClaimChainId: (chainId: number) => void;
 }
 

@@ -1,7 +1,6 @@
 import { USDCABI } from "@/constants/abi/USDC";
 import { RPC, USDCCONTRACTS } from "@/constants/address";
 import { useTokenStore } from "@/store";
-import { useEffect, useState } from "react";
 import { createPublicClient, formatUnits, http } from "viem";
 import { useAccount } from "wagmi";
 
@@ -20,7 +19,7 @@ export default function useBal() {
         abi: USDCABI,
         address: USDCCONTRACTS[sellToken].testnetContract,
         functionName: "balanceOf",
-        args: [address],
+        args: [address!],
       });
 
       return formatUnits(balance, 6);

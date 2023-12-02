@@ -15,6 +15,28 @@ export const useGasUsed = () => {
       type: "Layer 1",
     },
     {
+      id: 1,
+      network: "polygon",
+      name: "Polygon",
+      symbol: "MATIC",
+      coinGeckoId: "matic-network",
+      url: "",
+      website: "https://hermez.io/",
+      image: "/networks/polygon_logo.png",
+      type: "Sidechain",
+    },
+    {
+      id: 2,
+      network: "avalanche",
+      name: "Avalanche",
+      symbol: "AVAX",
+      coinGeckoId: "avalanche-2",
+      url: "https://rpc.ankr.com/avalanche",
+      website: "https://www.avax.network/",
+      image: "/networks/avalanche_logo.png",
+      type: "Sidechain",
+    },
+    {
       id: 3,
       network: "arbitrum",
       symbol: "ETH",
@@ -37,26 +59,15 @@ export const useGasUsed = () => {
       type: "Layer 2",
     },
     {
-      id: 2,
-      network: "avalanche",
-      name: "Avalanche",
-      symbol: "AVAX",
-      coinGeckoId: "avalanche-2",
-      url: "https://rpc.ankr.com/avalanche",
-      website: "https://www.avax.network/",
-      image: "/networks/avalanche_logo.png",
-      type: "Sidechain",
-    },
-    {
-      id: 1,
-      network: "polygon",
-      name: "Polygon",
-      symbol: "MATIC",
-      coinGeckoId: "matic-network",
-      url: "",
-      website: "https://hermez.io/",
-      image: "/networks/polygon_logo.png",
-      type: "Sidechain",
+      id: 5,
+      network: "base",
+      symbol: "BASE",
+      name: "Base",
+      coinGeckoId: "ethereum",
+      url: "https://rpc.ankr.com/base",
+      website: "https://base.org/",
+      image: "/networks/base_logo.jpeg",
+      type: "Layer 2",
     },
   ];
 
@@ -96,7 +107,7 @@ export const useGasUsed = () => {
     const fiat = Number(await fetchFiatRates(chain));
     const gas = Number(await fetchGasPrices(chain));
 
-    console.log(fiat, gas, gasUsed, "FIAT")
+    console.log(fiat, gas, gasUsed, "FIAT");
     const usdPrice = (fiat * gas * gasUsed) / 1000_000_000;
 
     return usdPrice;

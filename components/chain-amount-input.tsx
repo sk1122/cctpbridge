@@ -15,6 +15,8 @@ export const ChainAmountInput = () => {
     const currentBal = await getBalance();
     if (currentBal) {
       setBalance(currentBal);
+    } else {
+      setBalance(null);
     }
   }
 
