@@ -8,6 +8,7 @@ import {
 } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
+import { toast, ToastContainer } from "react-toastify";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
   arbitrumGoerli,
@@ -17,6 +18,7 @@ import {
   optimismGoerli,
 } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
+import "react-toastify/dist/ReactToastify.css";
 
 const { chains, publicClient } = configureChains(
   [goerli, avalancheFuji, arbitrumGoerli, optimismGoerli, baseGoerli],
@@ -45,6 +47,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </div>
         <Footer />
       </RainbowKitProvider>
+      <ToastContainer position={toast.POSITION.TOP_RIGHT} />
     </WagmiConfig>
   );
 }

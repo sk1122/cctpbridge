@@ -119,9 +119,6 @@ export const Box = () => {
     }
   }
 
-  const diff = getTimeDifference("");
-  console.log(diff);
-
   useEffect(() => {
     const isvalid = validate();
     setCanBridge(isvalid);

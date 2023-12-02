@@ -14,6 +14,7 @@ import { useChainId } from "wagmi";
 import getAttestation from "@/utils/getAttestation";
 import updateTransaction from "@/utils/updateTransaction";
 import { useTokenStore } from "@/store";
+import { toast } from "react-toastify";
 
 export default function Timer({ tx }: { tx: ITransactions }) {
   const { handleTimer, seconds } = useTimer();
@@ -40,14 +41,25 @@ export default function Timer({ tx }: { tx: ITransactions }) {
       const messagehash = keccak256(srcMessage);
       const isConfirmed = await attestationStatus(messagehash);
 
-      console.log(srcTx, dstChain, srcMessage);
+      if (!isConfirmed) {
+        toast.error("Attestation is still pending", {
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        return;
+      }
 
       if (isConfirmed) {
         const chain = chains.find((chain) => chain.chainId == dstChain);
-        if (chain?.testnetChainId && chainID !== chain?.testnetChainId) {
-          await switchChain(chain?.testnetChainId);
-        }
         if (!chain) return;
+        if (chain?.testnetChainId && chainID !== chain?.testnetChainId) {
+          const chainID = await switchChain(chain?.testnetChainId);
+          if (!chainID) return;
+        }
         console.log("here", chain);
         setClaimChainId(chain.id - 1);
         const response = await getAttestation(messagehash);

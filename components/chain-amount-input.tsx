@@ -1,7 +1,7 @@
-import { useTokenStore } from "@/store";
-import { Input } from "./input";
-import { useEffect, useState } from "react";
 import useBal from "@/hooks/useBal";
+import { useTokenStore } from "@/store";
+import { useEffect, useState } from "react";
+import { Input } from "./input";
 
 export const ChainAmountInput = () => {
   const [isFocused, setIsFocused] = useState(false);
