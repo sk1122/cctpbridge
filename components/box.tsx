@@ -158,15 +158,16 @@ export const Box = () => {
                     </h1>
                     {transactionDetails?.success ? (
                       <>
+                        <Player
+                          src={
+                            "https://lottie.host/70fe85c3-eff9-480d-a4fb-bea1bd9e5423/vhXw9v6j07.json"
+                          }
+                          autoplay
+                          speed={1}
+                          keepLastFrame
+                          className="w-28 h-28"
+                        />
                         <div className="flex gap-2 items-center justify-center">
-                          <Player
-                            src={
-                              "https://lottie.host/70fe85c3-eff9-480d-a4fb-bea1bd9e5423/vhXw9v6j07.json"
-                            }
-                            autoplay
-                            speed={1}
-                            className="w-28 h-28"
-                          />
                           <p className="text-white text-sm">
                             {formatAddress(
                               transactionDetails?.transactionHash!
