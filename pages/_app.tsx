@@ -12,13 +12,14 @@ import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
   arbitrumGoerli,
   avalancheFuji,
+  baseGoerli,
   goerli,
   optimismGoerli,
 } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, publicClient } = configureChains(
-  [goerli, avalancheFuji, arbitrumGoerli, optimismGoerli],
+  [goerli, avalancheFuji, arbitrumGoerli, optimismGoerli, baseGoerli],
   [publicProvider()]
 );
 

@@ -37,6 +37,12 @@ export const RPC = [
     testnetRPC: "https://rpc.ankr.com/optimism_testnet",
     mainnetRPC: "https://rpc.ankr.com/optimism",
   },
+  {
+    id: 5,
+    network: "base",
+    testnetRPC: "https://rpc.ankr.com/base",
+    mainnetRPC: "https://rpc.ankr.com/base_goerli",
+  },
 ];
 
 export const USDCCONTRACTS: Contracts[] = [
@@ -70,6 +76,12 @@ export const USDCCONTRACTS: Contracts[] = [
     testnetContract: "0xe05606174bac4A6364B31bd0eCA4bf4dD368f8C6",
     mainnetContract: "0x0b2c639c533813f4aa9d7837caf62653d097ff85",
   },
+  {
+    id: 5,
+    network: "base",
+    testnetContract: "0xf175520c52418dfe19c8098071a252da48cd1c19",
+    mainnetContract: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  },
 ];
 
 export const BRIDGECONTRACTS: Contracts[] = [
@@ -102,5 +114,11 @@ export const BRIDGECONTRACTS: Contracts[] = [
     network: "optimism",
     testnetContract: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
     mainnetContract: "0xe3edd42194D9B12781F1ed5f687328Ac764bEf02",
+  },
+  {
+    id: 5,
+    network: "base",
+    testnetContract: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
+    mainnetContract: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
   },
 ];

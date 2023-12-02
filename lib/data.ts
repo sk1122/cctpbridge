@@ -246,11 +246,56 @@ export const evmChainData: Chain[] = [
     ],
     isSupported: true,
   },
+  {
+    id: 6,
+    chainId: 8453,
+    testnetChainId: 84531,
+    destinationDomain: 6,
+    contractAddress: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
+    name: "BASE",
+    rpc: `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
+    logoURI: "/asset/base.webp",
+    tokens: [
+      {
+        name: "USDC",
+        address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        chainId: 8453,
+        symbol: "USDC",
+        logoURI: "/asset/usdc.webp",
+        decimals: 6,
+      },
+      {
+        name: "USDT",
+        address: "0x606e82f417ec3cd0dc8fdf8881e3f38868284d76",
+        chainId: 8453,
+        symbol: "USDT",
+        logoURI: "/asset/usdt.webp",
+        decimals: 6,
+      },
+      {
+        name: "DAI",
+        address: "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb",
+        chainId: 8453,
+        symbol: "DAI",
+        logoURI: "/asset/dai.webp",
+        decimals: 6,
+      },
+      {
+        name: "ETH",
+        address: "",
+        chainId: 8453,
+        symbol: "ETH",
+        logoURI: "/asset/ethereum.webp",
+        decimals: 18,
+      },
+    ],
+    isSupported: true,
+  },
 ];
 
 export const solanaChainData: Chain[] = [
   {
-    id: 6,
+    id: 7,
     chainId: 12465,
     name: "SOL",
     testnetChainId: 1,
@@ -290,7 +335,7 @@ export const solanaChainData: Chain[] = [
 
 export const aptosChainData: Chain[] = [
   {
-    id: 7,
+    id: 8,
     chainId: 12466,
     testnetChainId: 1,
     destinationDomain: 0,
