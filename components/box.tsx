@@ -80,7 +80,7 @@ export const Box = () => {
     if (!isConnected || sellAmount.length === 0) return;
 
     try {
-      const chainID = await switchChain(chains[sellToken].testnetChainId);
+      const chainID = await switchChain(chains[sellToken].chainId);
 
       if (!chainID) {
         setTransactionDetails({
