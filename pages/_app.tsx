@@ -9,18 +9,19 @@ import {
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
 import { toast, ToastContainer } from "react-toastify";
-import { configureChains, createConfig, mainnet, WagmiConfig } from "wagmi";
+import "react-toastify/dist/ReactToastify.css";
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import {
-  arbitrum,
-  avalanche,
-  base,
-  optimism,
+  arbitrumGoerli,
+  avalancheFuji,
+  baseGoerli,
+  optimismGoerli,
+  polygonMumbai,
 } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
-import "react-toastify/dist/ReactToastify.css";
 
 const { chains, publicClient } = configureChains(
-  [mainnet, avalanche, arbitrum, optimism, base],
+  [polygonMumbai, avalancheFuji, arbitrumGoerli, optimismGoerli, baseGoerli],
   [publicProvider()]
 );
 
