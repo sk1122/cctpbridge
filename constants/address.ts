@@ -10,7 +10,7 @@ export const RPC = [
     id: 0,
     network: "ethereum",
     testnetRPC: "https://rpc.ankr.com/eth_goerli",
-    mainnetRPC: "",
+    mainnetRPC: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ETH_MAINNET_RPC}`,
   },
   {
     id: 1,
@@ -27,9 +27,9 @@ export const RPC = [
   {
     id: 3,
     network: "arbitrum",
-    testnetRPC: "",
+    testnetRPC: "https://goerli-rollup.arbitrum.io/rpc",
     mainnetRPC:
-      "https://arb-mainnet.g.alchemy.com/v2/y141okG6TC3PecBM1mL0BfST9f4WQmLx",
+      `https://arb-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ARB_MAINNET_RPC}`,
   },
   {
     id: 4,
