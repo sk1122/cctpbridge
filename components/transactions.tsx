@@ -18,7 +18,7 @@ export interface ITransactions {
   dstChain: number;
   dstToken: string;
   dstAmount: string;
-  dstTx: string | null;
+  dstTx: `0x${string}` | null;
   slippage: number;
   pending: boolean;
 }

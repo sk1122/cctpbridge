@@ -4,6 +4,7 @@ import formatAddress from "@/utils/formatAddress";
 import LinkIcon from "./UI/Icons/LinkIcon";
 import Timer from "./UI/Timer";
 import React from "react";
+import getExplorerLink from "@/utils/getExplorerLink";
 
 function SingleTransaction({
   tx,
@@ -30,10 +31,12 @@ function SingleTransaction({
       <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
         {tx.dstAmount}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-white flex items-center gap-1">
-        {formatAddress(tx.srcTx)}
-        <LinkIcon />
-      </td>
+      <a href={getExplorerLink(tx.srcChain, tx.srcTx)} target="_blank">
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-white flex items-center gap-1">
+          {formatAddress(tx.srcTx)}
+          <LinkIcon />
+        </td>
+      </a>
       <td
         className={`px-6 py-4 whitespace-nowrap text-end text-sm font-medium text-white ${
           isLastTransaction ? `rounded-br-lg` : undefined
