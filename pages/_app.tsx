@@ -10,12 +10,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
 import { toast, ToastContainer } from "react-toastify";
 import { configureChains, createConfig, mainnet, WagmiConfig } from "wagmi";
-import {
-  arbitrum,
-  avalanche,
-  base,
-  optimism,
-} from "wagmi/chains";
+import { arbitrum, avalanche, base, optimism } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import "react-toastify/dist/ReactToastify.css";
 
