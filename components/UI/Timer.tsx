@@ -95,7 +95,7 @@ export default function Timer({ tx }: { tx: ITransactions }) {
           {dstTx ? (
             <a href={getExplorerLink(tx.dstChain, tx.dstTx!)} target="_blank">
               <div className="flex items-center gap-1">
-                {formatAddress(dstTx)}
+                <p>{formatAddress(dstTx)}</p>
                 <LinkIcon />
               </div>
             </a>

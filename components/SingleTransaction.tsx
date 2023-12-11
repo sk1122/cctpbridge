@@ -20,23 +20,27 @@ function SingleTransaction({
           isLastTransaction ? `rounded-bl-lg` : undefined
         }`}
       >
-        {getChainName(tx.srcChain)}
+        <p>{getChainName(tx.srcChain)}</p>
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
-        {getChainName(tx.dstChain)}
+        <p>{getChainName(tx.dstChain)}</p>
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
-        {tx.srcAmount}
+        <p>{tx.srcAmount}</p>
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
-        {tx.dstAmount}
+        <p>{tx.dstAmount}</p>
       </td>
-      <a href={getExplorerLink(tx.srcChain, tx.srcTx)} target="_blank">
-        <td className="px-6 py-4 whitespace-nowrap text-sm text-white flex items-center gap-1">
-          {formatAddress(tx.srcTx)}
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
+        <a
+          href={getExplorerLink(tx.srcChain, tx.srcTx)}
+          target="_blank"
+          className="flex items-center gap-1"
+        >
+          <p>{formatAddress(tx.srcTx)}</p>
           <LinkIcon />
-        </td>
-      </a>
+        </a>
+      </td>
       <td
         className={`px-6 py-4 whitespace-nowrap text-end text-sm font-medium text-white ${
           isLastTransaction ? `rounded-br-lg` : undefined

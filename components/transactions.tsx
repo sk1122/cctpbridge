@@ -104,6 +104,7 @@ export default function Transactions() {
                 <tbody className="divide-y divide-gray-100 bg-[#17181C]">
                   {allTransactions?.map((tx, index) => (
                     <SingleTransaction
+                      key={index}
                       tx={tx}
                       isLastTransaction={allTransactions?.length - 1 === index}
                     />
