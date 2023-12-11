@@ -15,13 +15,13 @@ import {
   arbitrumGoerli,
   avalancheFuji,
   baseGoerli,
+  goerli,
   optimismGoerli,
-  polygonMumbai,
 } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, publicClient } = configureChains(
-  [polygonMumbai, avalancheFuji, arbitrumGoerli, optimismGoerli, baseGoerli],
+  [goerli, avalancheFuji, arbitrumGoerli, optimismGoerli, baseGoerli],
   [publicProvider()]
 );
 
