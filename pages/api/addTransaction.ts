@@ -22,6 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           dstToken,
           dstAmount,
           slippage,
+          testnet: false
         },
       });
       res.status(200).json(project);
