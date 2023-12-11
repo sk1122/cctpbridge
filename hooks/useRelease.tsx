@@ -14,14 +14,14 @@ export default function useRelease() {
   ) {
     console.log(
       claimChainId,
-      BRIDGECONTRACTS[releaseChainId].mainnetContract,
+      BRIDGECONTRACTS[releaseChainId].testnetContract,
       "TESTNET"
     );
     try {
       const hash = await walletClient!.writeContract({
         abi: ABI,
         functionName: "release",
-        address: BRIDGECONTRACTS[releaseChainId].mainnetContract,
+        address: BRIDGECONTRACTS[releaseChainId].testnetContract,
         args: [message, attestation],
       });
       return hash;

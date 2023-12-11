@@ -57,8 +57,8 @@ export const Box = () => {
   ) {
     const srcChain = chains[sellToken].chainId;
     const dstChain = chains[buyToken].chainId;
-    const srcToken = USDCCONTRACTS[sellToken].mainnetContract;
-    const dstToken = USDCCONTRACTS[buyToken].mainnetContract;
+    const srcToken = USDCCONTRACTS[sellToken].testnetContract;
+    const dstToken = USDCCONTRACTS[buyToken].testnetContract;
     const slippage = 1;
 
     await addTransaction(

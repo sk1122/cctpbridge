@@ -38,8 +38,8 @@ const confirmationTimes = [
     id: 5,
     network: "base",
     testnet: 60,
-    mainnet: 780
-  }
+    mainnet: 780,
+  },
 ];
 
 export default function useTimer() {
@@ -65,8 +65,8 @@ export default function useTimer() {
 
     if (diff <= 0) return;
 
-    if (confirmationTimes[chain?.id - 1].mainnet > diff) {
-      const seconds = confirmationTimes[chain?.id - 1].mainnet - diff;
+    if (confirmationTimes[chain?.id - 1].testnet > diff) {
+      const seconds = confirmationTimes[chain?.id - 1].testnet - diff;
       timer(seconds);
     }
   }

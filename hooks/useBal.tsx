@@ -12,12 +12,12 @@ export default function useBal() {
     try {
       if (!address) return;
       const rpc = createPublicClient({
-        transport: http(RPC[sellToken].mainnetRPC),
+        transport: http(RPC[sellToken].testnetRPC),
       });
 
       const balance = await rpc.readContract({
         abi: USDCABI,
-        address: USDCCONTRACTS[sellToken].mainnetContract,
+        address: USDCCONTRACTS[sellToken].testnetContract,
         functionName: "balanceOf",
         args: [address!],
       });
