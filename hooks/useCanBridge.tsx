@@ -11,7 +11,7 @@ export default function useCanBridge() {
   function validate() {
     if (isConnected && sellAmount.length > 0 && sellAmount !== "0") {
       if (balance) {
-        if (balance > sellAmount) {
+        if (balance >= sellAmount) {
           if (isReceiverAddress) {
             if (isAddress(receiverAddress)) {
               return true;
