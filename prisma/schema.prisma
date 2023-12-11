@@ -26,4 +26,5 @@ model transaction {
   slippage   Int
   pending    Boolean? @default(true)
   srcMessage String   @unique @db.VarChar
+  testnet    Boolean? @default(false)
 }

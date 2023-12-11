@@ -34,6 +34,12 @@ const confirmationTimes = [
     testnet: 20,
     mainnet: 780,
   },
+  {
+    id: 5,
+    network: "base",
+    testnet: 60,
+    mainnet: 780,
+  },
 ];
 
 export default function useTimer() {

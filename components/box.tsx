@@ -22,7 +22,6 @@ import Spinner from "./UI/Spinner";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
-import getTimeDifference from "@/utils/getTimeDifference";
 
 type TransactionDetails = {
   success: boolean;
@@ -55,10 +54,10 @@ export const Box = () => {
     srcMessage: `0x${string}`,
     srcTx: `0x${string}`
   ) {
-    const srcChain = chains[sellToken].chainId;
-    const dstChain = chains[buyToken].chainId;
-    const srcToken = USDCCONTRACTS[sellToken].mainnetContract;
-    const dstToken = USDCCONTRACTS[buyToken].mainnetContract;
+    const srcChain = chains[sellToken].testnetChainId;
+    const dstChain = chains[buyToken].testnetChainId;
+    const srcToken = USDCCONTRACTS[sellToken].testnetContract;
+    const dstToken = USDCCONTRACTS[buyToken].testnetContract;
     const slippage = 1;
 
     await addTransaction(

@@ -15,6 +15,7 @@ import getAttestation from "@/utils/getAttestation";
 import updateTransaction from "@/utils/updateTransaction";
 import { useTokenStore } from "@/store";
 import { toast } from "react-toastify";
+import getExplorerLink from "@/utils/getExplorerLink";
 
 export default function Timer({ tx }: { tx: ITransactions }) {
   const { handleTimer, seconds } = useTimer();
@@ -56,7 +57,7 @@ export default function Timer({ tx }: { tx: ITransactions }) {
       if (isConfirmed) {
         const chain = chains.find((chain) => chain.chainId == dstChain);
         if (!chain) return;
-        if (chain?.testnetChainId && chainID !== chain?.testnetChainId) {
+        if (chain?.chainId && chainID !== chain?.testnetChainId) {
           const chainID = await switchChain(chain?.testnetChainId);
           if (!chainID) return;
         }
@@ -92,10 +93,12 @@ export default function Timer({ tx }: { tx: ITransactions }) {
       ) : (
         <>
           {dstTx ? (
-            <div className="flex items-center gap-1">
-              {formatAddress(dstTx)}
-              <LinkIcon />
-            </div>
+            <a href={getExplorerLink(tx.dstChain, tx.dstTx!)} target="_blank">
+              <div className="flex items-center gap-1">
+                <p>{formatAddress(dstTx)}</p>
+                <LinkIcon />
+              </div>
+            </a>
           ) : (
             <Button
               className="inline-flex items-center gap-x-2 text-sm px-4 py-1 font-semibold rounded-full bg-[#FF7D1F] text-white"
