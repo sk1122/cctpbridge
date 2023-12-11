@@ -31,7 +31,7 @@ function SingleTransaction({
         {tx.dstAmount}
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-white flex items-center gap-1">
-        {formatAddress(tx.srcTx)}
+        {formatAddress(tx.srcTx)} 
         <LinkIcon />
       </td>
       <td
