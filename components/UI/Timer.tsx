@@ -20,7 +20,7 @@ import getExplorerLink from "@/utils/getExplorerLink";
 export default function Timer({ tx }: { tx: ITransactions }) {
   const { handleTimer, seconds } = useTimer();
   const { releaseFunds } = useRelease();
-  const [dstTx, setDstTx] = useState<string | null>(tx.dstTx);
+  const [dstTx, setDstTx] = useState<`0x${string}` | null>(tx.dstTx);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { attestationStatus } = useAttestation();
   const { switchChain } = useSwitchChain();
@@ -93,7 +93,7 @@ export default function Timer({ tx }: { tx: ITransactions }) {
       ) : (
         <>
           {dstTx ? (
-            <a href={getExplorerLink(tx.dstChain, tx.dstTx!)} target="_blank">
+            <a href={getExplorerLink(tx.dstChain, dstTx!)} target="_blank">
               <div className="flex items-center gap-1">
                 <p>{formatAddress(dstTx)}</p>
                 <LinkIcon />
