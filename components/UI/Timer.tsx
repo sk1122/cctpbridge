@@ -55,7 +55,7 @@ export default function Timer({ tx }: { tx: ITransactions }) {
       }
 
       if (isConfirmed) {
-        const chain = chains.find((chain) => chain.chainId == dstChain);
+        const chain = chains.find((chain) => chain.testnetChainId == dstChain);
         if (!chain) return;
         if (chain?.chainId && chainID !== chain?.testnetChainId) {
           const chainID = await switchChain(chain?.testnetChainId);
