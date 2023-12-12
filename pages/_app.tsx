@@ -13,6 +13,7 @@ import { configureChains, createConfig, mainnet, WagmiConfig } from "wagmi";
 import { arbitrum, avalanche, base, optimism } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import "react-toastify/dist/ReactToastify.css";
+import Script from "next/script";
 
 const { chains, publicClient } = configureChains(
   [mainnet, avalanche, arbitrum, optimism, base],
@@ -37,6 +38,16 @@ export default function App({ Component, pageProps }: AppProps) {
       <RainbowKitProvider chains={chains} theme={darkTheme()}>
         <div className="bg-[url('/hero.svg')]">
           <Navbar />
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-7P53SDD713" />
+          <Script id="google-analytics">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+    
+              gtag('config', 'G-7P53SDD713');
+            `}
+          </Script>
           <Component {...pageProps} />
         </div>
         <Footer />
