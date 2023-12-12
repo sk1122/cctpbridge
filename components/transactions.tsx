@@ -118,7 +118,7 @@ export default function Transactions() {
                     <Spinner />
                   </div>
                 ) : (
-                  <h1>No data found</h1>
+                  <h1 className="text-gray-500">No transactions found</h1>
                 )}
               </div>
             )}
