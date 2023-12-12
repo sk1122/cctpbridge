@@ -21,11 +21,13 @@ export default function Feedback() {
           className={
             "border border-white border-opacity-25 mt-4 bg-transparent"
           }
-          placeholder="Phone Number"
+          placeholder="Email"
         />
       </div>
       <button className="px-8 py-2 rounded-full text-white bg-[#FF7D1F] mt-6">
-        Send Request
+        <a href="https://cal.com/satyam-fetcch/30min" target="_blank">
+          Send Request
+        </a>
       </button>
     </div>
   );

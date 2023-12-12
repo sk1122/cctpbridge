@@ -9,7 +9,7 @@ export default function useAttestation() {
       }
       return false;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 

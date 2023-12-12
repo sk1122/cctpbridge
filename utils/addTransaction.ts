@@ -22,7 +22,7 @@ const addTransaction = async (sender: string, receiver: string, srcChain: number
         const data = await res.json();
         return data
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 }
 

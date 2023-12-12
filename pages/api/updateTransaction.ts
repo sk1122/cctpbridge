@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             const { srcTx, dstTx, pending } = req.body;
 
-            console.log(srcTx, dstTx, "api")
+            // console.log(srcTx, dstTx, "api")
 
             const updatedAt = new Date(Date.now()).toISOString();
 
@@ -21,10 +21,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
             });
 
-            console.log(project)
+            // console.log(project)
             res.status(200).json(project);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             res.status(400).json({ error });
         }
     } else {

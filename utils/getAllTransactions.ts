@@ -9,7 +9,7 @@ const getAllTransactions = async (address: string) => {
         const data = await res.json();
         return data
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 }
 

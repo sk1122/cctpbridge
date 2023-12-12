@@ -24,7 +24,7 @@ export default function useBal() {
 
       return formatUnits(balance, 6);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 

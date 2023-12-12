@@ -14,7 +14,7 @@ export default function FeesBox() {
     if (data) {
       setGasFees(data.toFixed(2));
     }
-    console.log(data);
+    // console.log(data);
   }
 
   useEffect(() => {

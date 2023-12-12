@@ -4,11 +4,11 @@ const getAttestation = async (messageHash: string) => {
       `https://iris-api.circle.com/attestations/${messageHash}`
     );
     const response = await _response.json();
-    console.log("Attestation response: ", response);
+    // console.log("Attestation response: ", response);
 
     return response;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 

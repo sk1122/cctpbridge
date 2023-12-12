@@ -28,7 +28,7 @@ export default function useApprove() {
       });
       return hash;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 

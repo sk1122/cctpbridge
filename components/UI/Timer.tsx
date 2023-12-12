@@ -61,7 +61,7 @@ export default function Timer({ tx }: { tx: ITransactions }) {
           const chainID = await switchChain(chain?.chainId);
           if (!chainID) return;
         }
-        console.log("here", chain);
+        // console.log("here", chain);
         setClaimChainId(chain.id - 1);
         const response = await getAttestation(messagehash);
         const hash = await releaseFunds(
@@ -70,12 +70,12 @@ export default function Timer({ tx }: { tx: ITransactions }) {
           chain.id - 1
         );
         if (!hash) return;
-        console.log(hash);
+        // console.log(hash);
         setDstTx(hash);
         await updateTransaction(srcTx, hash, false);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setIsLoading(false);
     }

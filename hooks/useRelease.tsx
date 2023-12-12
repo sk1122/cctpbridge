@@ -12,11 +12,11 @@ export default function useRelease() {
     attestation: `0x${string}`,
     releaseChainId: number
   ) {
-    console.log(
-      claimChainId,
-      BRIDGECONTRACTS[releaseChainId].mainnetContract,
-      "TESTNET"
-    );
+    // console.log(
+    //   claimChainId,
+    //   BRIDGECONTRACTS[releaseChainId].mainnetContract,
+    //   "TESTNET"
+    // );
     try {
       const hash = await walletClient!.writeContract({
         abi: ABI,
@@ -26,7 +26,7 @@ export default function useRelease() {
       });
       return hash;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 

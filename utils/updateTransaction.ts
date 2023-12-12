@@ -1,5 +1,5 @@
 const updateTransaction = async (srcTx: string, dstTx: string, pending: boolean) => {
-    console.log(srcTx, dstTx, "utils")
+    // console.log(srcTx, dstTx, "utils")
     try {
         const res = await fetch("/api/updateTransaction", {
             method: "PUT",
@@ -15,7 +15,7 @@ const updateTransaction = async (srcTx: string, dstTx: string, pending: boolean)
         const data = await res.json();
         return data
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 }
 

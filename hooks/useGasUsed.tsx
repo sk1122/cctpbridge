@@ -72,7 +72,7 @@ export const useGasUsed = () => {
   ];
 
   const fetchFiatRates = async (chain: number) => {
-    console.log(chain, "heee");
+    // console.log(chain, "heee");
     const ids = networks.find((network) => network.id === chain)!.coinGeckoId;
     const vsCurrencies = "USD";
 
@@ -107,7 +107,7 @@ export const useGasUsed = () => {
     const fiat = Number(await fetchFiatRates(chain));
     const gas = Number(await fetchGasPrices(chain));
 
-    console.log(fiat, gas, gasUsed, "FIAT");
+    // console.log(fiat, gas, gasUsed, "FIAT");
     const usdPrice = (fiat * gas * gasUsed) / 1000_000_000;
 
     return usdPrice;

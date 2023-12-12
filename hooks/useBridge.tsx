@@ -44,14 +44,14 @@ export default function useBridge() {
         topics: log[0]?.topics,
       });
 
-      console.log(messagedata);
+      // console.log(messagedata);
 
       //@ts-ignore
       const message = messagedata?.args?.message;
 
       return message;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -75,7 +75,7 @@ export default function useBridge() {
       const amount = parseUnits(sellAmount, 6);
       const destinationDomain = chains[buyToken].destinationDomain;
 
-      console.log(destinationDomain);
+      // console.log(destinationDomain);
 
       const finalAddress =
         isReceiverAddress && isAddress(receiverAddress.trim())
@@ -90,13 +90,13 @@ export default function useBridge() {
         hash: hash,
       });
 
-      console.log(logs, transactionHash);
+      // console.log(logs, transactionHash);
 
       const message = await reTryCatch(5, logs);
 
       return { message, transactionHash };
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

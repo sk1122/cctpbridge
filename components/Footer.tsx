@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "./input";
 import {
   ChevronRight,
@@ -9,19 +9,20 @@ import {
   Youtube,
 } from "lucide-react";
 import Feedback from "./Feedback";
+import { toast } from "react-toastify";
 
 const Info = [
   {
     name: "About us",
-    link: "",
+    link: "https://fetcch.xyz",
   },
   {
     name: "Integrate",
-    link: "",
+    link: "https://docs.fetcch.xyz",
   },
   {
     name: "Report",
-    link: "",
+    link: "https://fetcch.xyz/report-with-anq",
   },
 ];
 
@@ -79,6 +80,29 @@ const Socials = [
 ];
 
 export default function Footer() {
+  const [email, setEmail] = useState("")
+  const add = async () => {
+    try {
+        const res = await fetch(
+          "https://wallet-api.fetcch.xyz/add-email-for-website",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: email,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          },
+        )
+    
+        toast.success("Successfully Subscribed")
+    } catch (e) {
+      toast.error("Can't subscribe now, try again")
+    }
+  }
+ 
   return (
     <div className="relative py-32">
       <div className="container mx-auto flex items-start justify-between px-4 flex-wrap">
@@ -93,7 +117,7 @@ export default function Footer() {
                 <ul className="font-medium">
                   {Info.map((data, index) => (
                     <li className="mb-2" key={index}>
-                      <a href="#" className=" hover:underline">
+                      <a href={data.link} className=" hover:underline">
                         {data.name}
                       </a>
                     </li>
@@ -140,11 +164,13 @@ export default function Footer() {
             </h2>
             <div className="border border-white rounded-lg flex items-center">
               <Input
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
                 className={"text-sm font-medium bg-transparent"}
                 placeholder="E-mail"
               />
               <div className="w-0.5 bg-slate-300 h-6"></div>
-              <ChevronRight className="mx-2 text-[#FF7D1F]" />
+              <ChevronRight onClick={() => add()} className="mx-2 text-[#FF7D1F]" />
             </div>
           </div>
           <div className="flex justify-between items-end mb-8 flex-wrap gap-10">
@@ -160,7 +186,7 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-            <p className="text-sm text-gray-400">© 2023 — Copyright</p>
+            <p className="text-sm text-gray-400">© 2023 — Copyright Fetcch</p>
           </div>
         </section>
         <Feedback />

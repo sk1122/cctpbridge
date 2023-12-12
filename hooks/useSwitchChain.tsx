@@ -14,7 +14,7 @@ export default function useSwitchChain() {
         return currentChainID;
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 

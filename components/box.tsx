@@ -115,7 +115,7 @@ export const Box = () => {
         setStep(2);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 

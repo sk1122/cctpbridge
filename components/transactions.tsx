@@ -34,7 +34,7 @@ export default function Transactions() {
     try {
       setTransactionLoading(true);
       const transactions = await getAllTransactions(address!);
-      console.log(transactions);
+      // console.log(transactions);
       if (transactions.length > 0) {
         setAllTransactions(transactions);
       }
@@ -42,7 +42,7 @@ export default function Transactions() {
         setAllTransactions([]);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setTransactionLoading(false);
     }
