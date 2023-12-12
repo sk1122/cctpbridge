@@ -4,6 +4,7 @@ import {
   ChevronRight,
   Facebook,
   Instagram,
+  Linkedin,
   Twitter,
   Youtube,
 } from "lucide-react";
@@ -11,23 +12,15 @@ import Feedback from "./Feedback";
 
 const Info = [
   {
-    name: "Company",
+    name: "About us",
     link: "",
   },
   {
-    name: "Products",
+    name: "Integrate",
     link: "",
   },
   {
-    name: "Enginnering",
-    link: "",
-  },
-  {
-    name: "Services",
-    link: "",
-  },
-  {
-    name: "Productions",
+    name: "Report",
     link: "",
   },
 ];
@@ -48,36 +41,40 @@ const About = [
 ];
 
 const Contact = [
+  // {
+  //   name: "+1 (999) 999-99-99",
+  //   link: "",
+  // },
   {
-    name: "+1 (999) 999-99-99",
-    link: "",
+    name: "hello@fetcch.xyz",
+    link: "mailto:hello@fetcch.xyz",
   },
-  {
-    name: "hello@logoipsum.com",
-    link: "",
-  },
-  {
-    name: "London",
-    link: "",
-  },
+  // {
+  //   name: "London",
+  //   link: "",
+  // },
 ];
 
 const Socials = [
+  // {
+  //   icon: <Facebook />,
+  //   link: "",
+  // },
+  // {
+  //   icon: <Instagram />,
+  //   link: "",
+  // },
+  // {
+  //   icon: <Youtube />,
+  //   link: "",
+  // },
   {
-    icon: <Facebook />,
-    link: "",
-  },
-  {
-    icon: <Instagram />,
-    link: "",
+    icon: <Linkedin />,
+    link: "https://www.linkedin.com/company/fetcchx/",
   },
   {
     icon: <Twitter />,
-    link: "",
-  },
-  {
-    icon: <Youtube />,
-    link: "",
+    link: "https://twitter.com/FetcchX",
   },
 ];
 
@@ -103,7 +100,7 @@ export default function Footer() {
                   ))}
                 </ul>
               </div>
-              <div>
+              {/* <div>
                 <h2 className="mb-6 text-sm font-semibold uppercase text-[#FF7D1F]">
                   About us
                 </h2>
@@ -116,7 +113,7 @@ export default function Footer() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div> */}
             </div>
           </div>
           <div>
@@ -126,7 +123,11 @@ export default function Footer() {
             <ul className="font-medium">
               {Contact.map((data, index) => (
                 <li className="mb-2" key={index}>
-                  <a href="#" className=" hover:underline">
+                  <a
+                    href={data.link}
+                    className="hover:underline"
+                    target="_blank"
+                  >
                     {data.name}
                   </a>
                 </li>
@@ -149,12 +150,14 @@ export default function Footer() {
           <div className="flex justify-between items-end mb-8 flex-wrap gap-10">
             <div className="flex gap-4 items-center">
               {Socials.map((social, index) => (
-                <div
-                  className="p-3 border border-white rounded-full"
-                  key={index}
-                >
-                  {social.icon}
-                </div>
+                <a href={social.link} target="_blank">
+                  <div
+                    className="p-3 border border-white rounded-full"
+                    key={index}
+                  >
+                    {social.icon}
+                  </div>
+                </a>
               ))}
             </div>
             <p className="text-sm text-gray-400">© 2023 — Copyright</p>
