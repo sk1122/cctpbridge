@@ -13,8 +13,8 @@ const confirmationTimes = [
   {
     id: 1,
     network: "polygon",
-    testnet: 0,
-    mainnet: 0,
+    testnet: 20,
+    mainnet: 480,
   },
   {
     id: 2,

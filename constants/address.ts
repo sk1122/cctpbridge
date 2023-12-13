@@ -95,7 +95,7 @@ export const BRIDGECONTRACTS: Contracts[] = [
     id: 1,
     network: "polygon",
     testnetContract: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
-    mainnetContract: "0x",
+    mainnetContract: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
   },
   {
     id: 2,
