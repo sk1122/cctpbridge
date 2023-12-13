@@ -70,7 +70,7 @@ export const evmChainData: Chain[] = [
     id: 2,
     chainId: 137,
     testnetChainId: 80001,
-    destinationDomain: 0,
+    destinationDomain: 7,
     contractAddress: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
     name: "POL",
     rpc: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
