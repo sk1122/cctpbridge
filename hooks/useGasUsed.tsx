@@ -100,7 +100,8 @@ export const useGasUsed = () => {
     });
 
     const gas = await rpc.getGasPrice();
-    return chain === 0 ? Number(gas) : Number(gas) / 1000_000_000;
+    console.log("GAS: ", gas)
+    return  Number(gas) / 1000_000_000;
   };
 
   const invoke = async (chain: number): Promise<number> => {
