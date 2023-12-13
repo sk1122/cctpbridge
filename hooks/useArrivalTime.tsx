@@ -6,7 +6,11 @@ export default function useArrivalTime() {
   const [arrivalTime, setArrivalTime] = useState<string>("13:00");
 
   function handleArrivalTime() {
+    console.log("SELL TOKEN: ", sellToken)
     switch (sellToken) {
+      case 1:
+        setArrivalTime("08:00");
+        break;
       case 2:
         setArrivalTime("00:20");
         break;
