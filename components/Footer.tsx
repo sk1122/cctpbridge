@@ -83,21 +83,25 @@ export default function Footer() {
   const [email, setEmail] = useState("")
   const add = async () => {
     try {
-        const res = await fetch(
-          "https://wallet-api.fetcch.xyz/add-email-for-website",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              email: email,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
+        if(email && email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+          const res = await fetch(
+            "https://wallet-api.fetcch.xyz/add-email-for-website",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email: email,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
             },
-          },
-        )
-    
-        toast.success("Successfully Subscribed")
+          )
+      
+          toast.success("Successfully Subscribed")
+        } else {
+          toast.error("Email is invalid")
+        }
     } catch (e) {
       toast.error("Can't subscribe now, try again")
     }
