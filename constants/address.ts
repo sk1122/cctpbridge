@@ -1,8 +1,8 @@
 type Contracts = {
   id: number;
   network: string;
-  testnetContract: `0x${string}`;
-  mainnetContract: `0x${string}`;
+  testnetContract: `0x${string}` | string;
+  mainnetContract: `0x${string}` | string;
 };
 
 export const RPC = [
@@ -40,6 +40,24 @@ export const RPC = [
   {
     id: 5,
     network: "base",
+    testnetRPC: "https://rpc.ankr.com/base_goerli",
+    mainnetRPC: "https://rpc.ankr.com/base",
+  },
+  {
+    id: 6,
+    network: "solana",
+    testnetRPC: "https://rpc.ankr.com/solana_devnet",
+    mainnetRPC: "https://rpc.ankr.com/solana",
+  },
+  {
+    id: 7,
+    network: "aptos",
+    testnetRPC: "https://rpc.ankr.com/http/aptos_testnet/v1",
+    mainnetRPC: "https://rpc.ankr.com/http/aptos/v1",
+  },
+  {
+    id: 8,
+    network: "noble",
     testnetRPC: "https://rpc.ankr.com/base_goerli",
     mainnetRPC: "https://rpc.ankr.com/base",
   },
@@ -82,6 +100,24 @@ export const USDCCONTRACTS: Contracts[] = [
     testnetContract: "0xf175520c52418dfe19c8098071a252da48cd1c19",
     mainnetContract: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
   },
+  {
+    id: 6,
+    network: "solana",
+    testnetContract: "0xf175520c52418dfe19c8098071a252da48cd1c19",
+    mainnetContract: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  },
+  {
+    id: 7,
+    network: "aptos",
+    testnetContract: "0xf175520c52418dfe19c8098071a252da48cd1c19",
+    mainnetContract: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  },
+  {
+    id: 8,
+    network: "noble",
+    testnetContract: "noble12l2w4ugfz4m6dd73yysz477jszqnfughxvkss5",
+    mainnetContract: "noble12l2w4ugfz4m6dd73yysz477jszqnfughxvkss5",
+  }
 ];
 
 export const BRIDGECONTRACTS: Contracts[] = [
@@ -121,4 +157,22 @@ export const BRIDGECONTRACTS: Contracts[] = [
     testnetContract: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
     mainnetContract: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
   },
+  {
+    id: 6,
+    network: "solana",
+    testnetContract: "0xf175520c52418dfe19c8098071a252da48cd1c19",
+    mainnetContract: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  },
+  {
+    id: 7,
+    network: "aptos",
+    testnetContract: "0xf175520c52418dfe19c8098071a252da48cd1c19",
+    mainnetContract: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+  },
+  {
+    id: 8,
+    network: "noble",
+    testnetContract: "noble12l2w4ugfz4m6dd73yysz477jszqnfughxvkss5",
+    mainnetContract: "noble12l2w4ugfz4m6dd73yysz477jszqnfughxvkss5",
+  }
 ];

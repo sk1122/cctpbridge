@@ -21,7 +21,8 @@ export default function useRelease() {
       const hash = await walletClient!.writeContract({
         abi: ABI,
         functionName: "release",
-        address: BRIDGECONTRACTS[releaseChainId].testnetContract,
+        address: BRIDGECONTRACTS[releaseChainId]
+          .testnetContract as `0x${string}`,
         args: [message, attestation],
       });
       return hash;

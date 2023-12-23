@@ -10,8 +10,8 @@ export type Token = {
 export type Chain = {
   id: number;
   rpc: string;
-  chainId: number;
-  testnetChainId: number;
+  chainId: number | string;
+  testnetChainId: number | string;
   destinationDomain: number;
   contractAddress: `0x${string}`;
   logoURI: string;
@@ -375,4 +375,38 @@ export const aptosChainData: Chain[] = [
   },
 ];
 
-export const chains = [...evmChainData, ...solanaChainData, ...aptosChainData];
+export const cosmosChainData: Chain[] = [
+  {
+    id: 9,
+    chainId: "noble-1",
+    testnetChainId: "noble-1",
+    destinationDomain: 4,
+    contractAddress: "0xe3edd42194D9B12781F1ed5f687328Ac764bEf02",
+    name: "NOBLE",
+    rpc: "https://eth-mainnet.g.alchemy.com/v2/",
+    logoURI: "/asset/noble.jpg",
+    tokens: [
+      {
+        name: "USDC",
+        address:
+          "0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDC",
+        chainId: 12466,
+        symbol: "USDC",
+        logoURI: "/asset/usdc.webp",
+        decimals: 10,
+      },
+      {
+        name: "USDT",
+        address:
+          "0xf22bede237a07e121b56d91a491eb7bcdfd1f5907926a9e58338f964a01b17fa::asset::USDT",
+        chainId: 12466,
+        symbol: "USDT",
+        logoURI: "/asset/usdt.webp",
+        decimals: 10,
+      },
+    ],
+    isSupported: true,
+  },
+]
+
+export const chains = [...evmChainData, ...solanaChainData, ...aptosChainData, ...cosmosChainData];

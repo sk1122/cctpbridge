@@ -20,7 +20,7 @@ export default function useConnectCosmos() {
       setAddress(accounts[0].address);
       //   console.log(accounts);
       const signingClient = await SigningStargateClient.connectWithSigner(
-        "",
+        "https://rpc.testnet.noble.strange.love",
         offlineSigner
       );
     }

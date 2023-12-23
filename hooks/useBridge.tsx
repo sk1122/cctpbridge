@@ -27,7 +27,7 @@ export default function useBridge() {
   const { writeAsync } = useContractWrite({
     abi: ABI,
     functionName: "bridge",
-    address: BRIDGECONTRACTS[sellToken].testnetContract,
+    address: BRIDGECONTRACTS[sellToken].testnetContract as `0x${string}`,
   });
 
   async function filterMessage(logs: Log<bigint, number, false>[]) {

@@ -9,7 +9,7 @@ export default function useApprove() {
   const { writeAsync } = useContractWrite({
     abi: USDCABI,
     functionName: "approve",
-    address: USDCCONTRACTS[sellToken].testnetContract,
+    address: USDCCONTRACTS[sellToken].testnetContract as `0x${string}`,
   });
   const chainID = useChainId();
   const { waitForTransactionReceipt } = usePublicClient({
@@ -21,7 +21,10 @@ export default function useApprove() {
       if (sellAmount.trim().length === 0) return;
       const amount = parseUnits(sellAmount, 6);
       const { hash } = await writeAsync({
-        args: [BRIDGECONTRACTS[sellToken].testnetContract, amount],
+        args: [
+          BRIDGECONTRACTS[sellToken].testnetContract as `0x${string}`,
+          amount,
+        ],
       });
       await waitForTransactionReceipt({
         hash: hash,
