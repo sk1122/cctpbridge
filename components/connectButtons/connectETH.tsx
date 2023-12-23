@@ -1,7 +1,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Button } from "./button";
+import { Button } from "../button";
 
-export const CustomConnectButton = () => {
+export const ConnectETH = () => {
   return (
     <ConnectButton.Custom>
       {({
@@ -37,10 +37,10 @@ export const CustomConnectButton = () => {
               if (!connected) {
                 return (
                   <button
-                    className="bg-transparent px-10 py-3 border-2 border-[#FF7D1F] rounded-full font-bold"
+                    className="bg-[#1F1F1F] text-white font-semibold rounded-xl w-full py-3"
                     onClick={openConnectModal}
                   >
-                    Connect wallet
+                    Etheruem
                   </button>
                 );
               }
