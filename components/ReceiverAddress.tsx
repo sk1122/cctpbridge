@@ -12,6 +12,7 @@ export default function ReceiverAddress() {
     setIsReceiverAddress,
     isReceiverAddress,
     buyToken,
+    sellToken,
   } = useTokenStore();
   return (
     <div>
@@ -22,7 +23,6 @@ export default function ReceiverAddress() {
         <Switch.Root
           className="w-[42px] h-[25px] relative rounded-full border bg-[#17181C] border-[#7A7A7A] data-[state=checked]:bg-[#431D02] data-[state=checked]:border-[#FF7D1F]"
           onClick={() => {
-            if (buyToken === 8) return;
             setIsReceiverAddress(!isReceiverAddress);
           }}
         >

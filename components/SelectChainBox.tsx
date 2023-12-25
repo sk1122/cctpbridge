@@ -84,9 +84,6 @@ export default function SelectChainBox({
                             setSellToken(buyToken);
                             setBuyToken(index);
                           }
-                          if (!isFrom && buyToken === 8) {
-                            setIsReceiverAddress(true);
-                          }
                           isFrom ? setSellToken(index) : setBuyToken(index);
                         }}
                       >
