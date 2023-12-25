@@ -17,7 +17,7 @@ export default function useBal() {
 
       const balance = await rpc.readContract({
         abi: USDCABI,
-        address: USDCCONTRACTS[sellToken].testnetContract,
+        address: USDCCONTRACTS[sellToken].testnetContract as `0x${string}`,
         functionName: "balanceOf",
         args: [address!],
       });

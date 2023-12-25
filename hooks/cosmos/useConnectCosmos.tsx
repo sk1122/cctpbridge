@@ -18,7 +18,7 @@ export default function useConnectCosmos() {
       const offlineSigner = window.keplr.getOfflineSigner(chainId);
       const accounts = await offlineSigner.getAccounts();
       setAddress(accounts[0].address);
-      //   console.log(accounts);
+      console.log(accounts);
       const signingClient = await SigningStargateClient.connectWithSigner(
         "https://rpc.testnet.noble.strange.love",
         offlineSigner
