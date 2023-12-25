@@ -11,6 +11,7 @@ export default function ReceiverAddress() {
     receiverAddress,
     setIsReceiverAddress,
     isReceiverAddress,
+    buyToken,
   } = useTokenStore();
   return (
     <div>
@@ -21,6 +22,7 @@ export default function ReceiverAddress() {
         <Switch.Root
           className="w-[42px] h-[25px] relative rounded-full border bg-[#17181C] border-[#7A7A7A] data-[state=checked]:bg-[#431D02] data-[state=checked]:border-[#FF7D1F]"
           onClick={() => {
+            if (buyToken === 8) return;
             setIsReceiverAddress(!isReceiverAddress);
           }}
         >
@@ -38,6 +40,9 @@ export default function ReceiverAddress() {
           value={receiverAddress}
           onChange={(e) => {
             setReceiverAddress(e.target.value);
+            if (buyToken === 8 && receiverAddress.includes("noble")) {
+              setIsValidAddress(true);
+            }
             if (isAddress(e.target.value)) {
               setIsValidAddress(true);
             }
@@ -47,3 +52,5 @@ export default function ReceiverAddress() {
     </div>
   );
 }
+
+// "0x000000000000000000000004000000000003b166000000000000000000000000d0c3da58f55358142b8d3e06c1c30c5c6114efe800000000000000000000000057d4eaf1091577a6b7d121202afbd2808134f11700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007865c6e87b9f70255377e024ace6630c1eaa37f000000000000000000000000fa92ce12b5e93710668e28042d8f5d18b801fdea0000000000000000000000000000000000000000000000000000000000030d40000000000000000000000000aed012a51bba208b270fd2b17f3417f6bd7d771a"

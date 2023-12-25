@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@cosmjs/proto-signing": "^0.28.2",
     "@cosmjs/stargate": "v0.28.2",
     "@lottiefiles/react-lottie-player": "^3.5.3",
     "@prisma/client": "^5.6.0",

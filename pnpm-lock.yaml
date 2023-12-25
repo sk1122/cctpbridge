@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@cosmjs/proto-signing':
+    specifier: ^0.28.2
+    version: 0.28.2
   '@cosmjs/stargate':
     specifier: v0.28.2
     version: 0.28.2

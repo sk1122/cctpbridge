@@ -14,7 +14,13 @@ export default function SelectChainBox({
 }) {
   const [searchItem, setSearchItem] = useState("");
   const [filteredChains, setFilteredChains] = useState(chains);
-  const { setSellToken, sellToken, setBuyToken, buyToken } = useTokenStore();
+  const {
+    setSellToken,
+    sellToken,
+    setBuyToken,
+    buyToken,
+    setIsReceiverAddress,
+  } = useTokenStore();
 
   const handleInputChange = (e: { target: { value: string } }) => {
     const searchTerm = e.target.value;
@@ -77,6 +83,9 @@ export default function SelectChainBox({
                           if (!isFrom && index === sellToken) {
                             setSellToken(buyToken);
                             setBuyToken(index);
+                          }
+                          if (!isFrom && buyToken === 8) {
+                            setIsReceiverAddress(true);
                           }
                           isFrom ? setSellToken(index) : setBuyToken(index);
                         }}

@@ -37,10 +37,15 @@ export const ConnectETH = () => {
               if (!connected) {
                 return (
                   <button
-                    className="bg-[#1F1F1F] text-white font-semibold rounded-xl w-full py-3"
+                    className="bg-[#1F1F1F] text-white font-semibold rounded-xl w-full py-3 flex justify-center items-center gap-2"
                     onClick={openConnectModal}
                   >
-                    Etheruem
+                    <img
+                      src="/asset/ethereum.webp"
+                      alt=""
+                      className="w-6 h-6"
+                    />
+                    Ethereum
                   </button>
                 );
               }
