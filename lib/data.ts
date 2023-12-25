@@ -10,8 +10,8 @@ export type Token = {
 export type Chain = {
   id: number;
   rpc: string;
-  chainId: number | string;
-  testnetChainId: number | string;
+  chainId: number;
+  testnetChainId: number;
   destinationDomain: number;
   contractAddress: `0x${string}`;
   logoURI: string;
@@ -378,8 +378,8 @@ export const aptosChainData: Chain[] = [
 export const cosmosChainData: Chain[] = [
   {
     id: 9,
-    chainId: "noble-1",
-    testnetChainId: "noble-1",
+    chainId: 12345,
+    testnetChainId: 12345,
     destinationDomain: 4,
     contractAddress: "0xe3edd42194D9B12781F1ed5f687328Ac764bEf02",
     name: "NOBLE",
