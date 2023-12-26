@@ -73,6 +73,7 @@ export const useGasUsed = () => {
 
   const fetchFiatRates = async (chain: number) => {
     console.log(chain, "heee");
+    if (chain === 8) return 10;
     const ids = networks.find((network) => network.id === chain)!.coinGeckoId;
     const vsCurrencies = "USD";
 

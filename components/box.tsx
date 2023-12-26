@@ -22,6 +22,7 @@ import Spinner from "./UI/Spinner";
 import { BoxHeader } from "./box-headers";
 import { Button } from "./button";
 import { ChainAmountInput } from "./chain-amount-input";
+import useCosmos from "@/hooks/cosmos/useCosmos";
 
 type TransactionDetails = {
   success: boolean;
@@ -48,6 +49,7 @@ export const Box = () => {
   } = useTokenStore();
   const { switchChain } = useSwitchChain();
   const { validate } = useCanBridge();
+  const { depositTokens } = useCosmos();
   const [canBridge, setCanBridge] = useState<boolean>(false);
 
   async function addTransactionToDB(
