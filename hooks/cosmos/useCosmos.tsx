@@ -1,12 +1,11 @@
-import { DepositForBurn } from "@/generated/circle/cctp/v1/events";
 import {
-  MsgDepositForBurn,
   MsgReceiveMessage,
+  MsgDepositForBurn,
 } from "@/generated/circle/cctp/v1/tx";
 import { chains } from "@/lib/data";
 import { useTokenStore } from "@/store";
 import { useCosmosStore } from "@/store/cosmos";
-import { GeneratedType, Registry, coins } from "@cosmjs/proto-signing";
+import { GeneratedType, Registry } from "@cosmjs/proto-signing";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 
