@@ -4,6 +4,8 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronDown, Search, X } from "lucide-react";
 import { Input } from "./input";
 import { useState } from "react";
+import { useCosmosStore } from "@/store/cosmos";
+import { useAccount } from "wagmi";
 
 export default function SelectChainBox({
   title,
@@ -20,9 +22,12 @@ export default function SelectChainBox({
     setBuyToken,
     buyToken,
     setIsReceiverAddress,
+    setReceiverAddress,
   } = useTokenStore();
+  const { isConnected, address } = useAccount();
+  const { address: cosmosAddress } = useCosmosStore();
 
-  const handleInputChange = (e: { target: { value: string } }) => {
+  function handleInputChange(e: { target: { value: string } }) {
     const searchTerm = e.target.value;
     setSearchItem(searchTerm);
 
@@ -31,7 +36,28 @@ export default function SelectChainBox({
     );
 
     setFilteredChains(filteredItems);
-  };
+  }
+
+  function handleChainChange(index: number) {
+    if (isFrom && index === buyToken) {
+      setBuyToken(sellToken);
+      setSellToken(index);
+    }
+    if (!isFrom && index === sellToken) {
+      setSellToken(buyToken);
+      setBuyToken(index);
+    }
+    if (index > 5) {
+      setIsReceiverAddress(true);
+      // if (!isFrom && index === 8 && cosmosAddress) {
+      //   setReceiverAddress(cosmosAddress);
+      // }
+      // if (!isFrom && isConnected && address) {
+      //   setReceiverAddress(address);
+      // }
+    }
+    isFrom ? setSellToken(index) : setBuyToken(index);
+  }
 
   return (
     <div className="bg-[#17181C] text-[#7A7A7A] rounded-xl px-4 py-2 border border-[#464646] w-full">
@@ -76,20 +102,7 @@ export default function SelectChainBox({
                         asChild
                         key={index}
                         onClick={() => {
-                          if (isFrom && index === buyToken) {
-                            setBuyToken(sellToken);
-                            setSellToken(index);
-                          }
-                          if (!isFrom && index === sellToken) {
-                            setSellToken(buyToken);
-                            setBuyToken(index);
-                          }
-                          if (index > 5) {
-                            setIsReceiverAddress(true);
-                          } else {
-                            setIsReceiverAddress(false);
-                          }
-                          isFrom ? setSellToken(index) : setBuyToken(index);
+                          handleChainChange(index);
                         }}
                       >
                         <div className="flex items-center px-2 py-2 gap-3 hover:bg-[#2B2B2B] cursor-pointer rounded-lg">
