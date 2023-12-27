@@ -13,7 +13,6 @@ export type Chain = {
   chainId: number;
   testnetChainId: number;
   destinationDomain: number;
-  contractAddress: `0x${string}`;
   logoURI: string;
   name: string;
   tokens: Token[];
@@ -26,7 +25,6 @@ export const evmChainData: Chain[] = [
     chainId: 1,
     testnetChainId: 5,
     destinationDomain: 0,
-    contractAddress: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
     name: "ETH",
     logoURI: "/asset/ethereum.webp",
     rpc: `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
@@ -71,7 +69,6 @@ export const evmChainData: Chain[] = [
     chainId: 137,
     testnetChainId: 80001,
     destinationDomain: 0,
-    contractAddress: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
     name: "POL",
     rpc: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     logoURI: "/asset/matic.webp",
@@ -116,7 +113,6 @@ export const evmChainData: Chain[] = [
     chainId: 43114,
     testnetChainId: 43113,
     destinationDomain: 1,
-    contractAddress: "0xe3edd42194D9B12781F1ed5f687328Ac764bEf02",
     name: "AVAX",
     rpc: "https://eth-mainnet.g.alchemy.com/v2/",
     logoURI: "/asset/avalanche.webp",
@@ -161,7 +157,6 @@ export const evmChainData: Chain[] = [
     chainId: 42161,
     testnetChainId: 421613,
     destinationDomain: 3,
-    contractAddress: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
     name: "ARB",
     rpc: `https://arb-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     logoURI: "/asset/arb.webp",
@@ -206,7 +201,6 @@ export const evmChainData: Chain[] = [
     chainId: 10,
     testnetChainId: 420,
     destinationDomain: 2,
-    contractAddress: "0xe3edd42194D9B12781F1ed5f687328Ac764bEf02",
     name: "OPT",
     rpc: `https://opt-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     logoURI: "/asset/opt.webp",
@@ -251,7 +245,6 @@ export const evmChainData: Chain[] = [
     chainId: 8453,
     testnetChainId: 84531,
     destinationDomain: 6,
-    contractAddress: "0xaED012a51BBa208b270fD2B17f3417f6bd7d771a",
     name: "BASE",
     rpc: `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     logoURI: "/asset/base.webp",
@@ -300,7 +293,6 @@ export const solanaChainData: Chain[] = [
     name: "SOL",
     testnetChainId: 1,
     destinationDomain: 0,
-    contractAddress: "0xe3edd42194D9B12781F1ed5f687328Ac764bEf02",
     rpc: `https://solana-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`,
     logoURI: "/asset/solana.webp",
     tokens: [
@@ -339,7 +331,6 @@ export const aptosChainData: Chain[] = [
     chainId: 12466,
     testnetChainId: 1,
     destinationDomain: 0,
-    contractAddress: "0xe3edd42194D9B12781F1ed5f687328Ac764bEf02",
     name: "APT",
     rpc: "https://eth-mainnet.g.alchemy.com/v2/",
     logoURI: "/asset/aptos.webp",
@@ -381,7 +372,6 @@ export const cosmosChainData: Chain[] = [
     chainId: 12345,
     testnetChainId: 12345,
     destinationDomain: 4,
-    contractAddress: "0xe3edd42194D9B12781F1ed5f687328Ac764bEf02",
     name: "NOBLE",
     rpc: "https://eth-mainnet.g.alchemy.com/v2/",
     logoURI: "/asset/noble.jpg",

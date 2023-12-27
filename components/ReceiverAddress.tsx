@@ -3,6 +3,8 @@ import * as Switch from "@radix-ui/react-switch";
 import { Input } from "./input";
 import { useState } from "react";
 import { isAddress } from "viem";
+import validateCosmosAddress from "@/utils/validators/validateCosmosAddress";
+import validateEvmaddress from "@/utils/validators/validateEvmaddress";
 
 export default function ReceiverAddress() {
   const [isValidAddress, setIsValidAddress] = useState<boolean>(false);
@@ -25,6 +27,7 @@ export default function ReceiverAddress() {
           onClick={() => {
             setIsReceiverAddress(!isReceiverAddress);
           }}
+          checked={isReceiverAddress}
         >
           <Switch.Thumb className="block w-[21px] h-[21px] transition-transform duration-100 bg-[#7A7A7A] translate-x-[2px] data-[state=checked]:translate-x-[18px] data-[state=checked]:bg-[#FF7D1F] will-change-transform rounded-full" />
         </Switch.Root>
@@ -40,12 +43,10 @@ export default function ReceiverAddress() {
           value={receiverAddress}
           onChange={(e) => {
             setReceiverAddress(e.target.value);
-            if (buyToken === 8 && receiverAddress.includes("noble")) {
-              setIsValidAddress(true);
+            if (buyToken === 8) {
+              setIsValidAddress(validateCosmosAddress(e.target.value));
             }
-            if (isAddress(e.target.value)) {
-              setIsValidAddress(true);
-            }
+            setIsValidAddress(validateEvmaddress(e.target.value));
           }}
         />
       ) : null}

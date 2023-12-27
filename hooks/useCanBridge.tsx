@@ -1,4 +1,6 @@
 import { useTokenStore } from "@/store";
+import validateCosmosAddress from "@/utils/validators/validateCosmosAddress";
+import validateEvmaddress from "@/utils/validators/validateEvmaddress";
 import { isAddress } from "viem";
 import { useAccount } from "wagmi";
 
@@ -13,12 +15,10 @@ export default function useCanBridge() {
       if (balance) {
         if (balance >= sellAmount) {
           if (isReceiverAddress) {
-            if (buyToken === 8 && receiverAddress.includes("noble")) {
-              return true;
+            if (buyToken === 8) {
+              return validateCosmosAddress(receiverAddress);
             }
-            if (isAddress(receiverAddress)) {
-              return true;
-            }
+            return validateEvmaddress(receiverAddress);
           } else {
             return true;
           }

@@ -51,18 +51,25 @@ export const ConnectETH = () => {
               }
               if (chain.unsupported) {
                 return (
-                  <Button
-                    text="Wrong network"
-                    active={true}
+                  <button
+                    className="bg-[#1F1F1F] text-white font-semibold rounded-xl w-full py-3 flex justify-center items-center gap-2"
                     onClick={openChainModal}
-                  />
+                  >
+                    <img
+                      src="/asset/ethereum.webp"
+                      alt=""
+                      className="w-6 h-6"
+                    />
+                    Wrong Network
+                  </button>
                 );
               }
               return (
                 <button
-                  className="bg-transparent px-10 py-3 border-2 border-[#FF7D1F] rounded-full font-bold"
+                  className="bg-[#1F1F1F] text-white font-semibold rounded-xl w-full py-3 flex justify-center items-center gap-2"
                   onClick={openAccountModal}
                 >
+                  <img src="/asset/ethereum.webp" alt="" className="w-6 h-6" />
                   Disconnect
                 </button>
               );

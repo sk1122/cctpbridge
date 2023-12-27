@@ -153,5 +153,13 @@ export default function useCosmos() {
     }
   }
 
-  return { connect, withdrawTokens, depositTokens };
+  function disconnect() {
+    try {
+      setAddress(undefined);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return { connect, disconnect, withdrawTokens, depositTokens };
 }
